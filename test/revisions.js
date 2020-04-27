@@ -64,6 +64,7 @@ describe("revisions", function(){
     sdk.list(domain, auth, function(error, revisions){
       should.not.exist(error)
       revisions.should.be.instanceof(Array).and.have.lengthOf(3)
+      revisions[0].should.have.property("timeAgoInWords")
       revisions[0].should.have.property("current", true)
       revisions[1].should.have.property("current", false)
       revisions[2].should.have.property("current", false)
@@ -202,7 +203,7 @@ describe("revisions", function(){
   })
 
   it("should cut back to original revision using domain", function(done){
-    var rev = [revisionToSet, domain].join(".")
+    var rev = [revisionToSet, domain].join("-")
     sdk.cutover(domain, rev, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
@@ -351,7 +352,7 @@ describe("revisions", function(){
   })
 
   it("should remove build", function(done){
-    sdk.delRevision(domain, revisionToDel, auth, function(error, cloudInfo){
+    sdk.discard(domain, revisionToDel, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
       cloudInfo.should.have.property("regions")

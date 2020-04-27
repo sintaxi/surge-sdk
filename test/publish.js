@@ -21,16 +21,39 @@ describe("publish", function(){
     })
   })
 
+  it("should reject invalid pojectname", function(done){
+    sdk.publish(project, "invalid domain", auth, {
+      "file-count": "99",
+      "cmd": "test",
+      "project-size": "9999",
+      "timestamp": new Date().toJSON()
+    }).on("invalid", function(error){
+      //should.exist(error)
+      //error.should.eql("Invalid")
+      return done()
+    })
+  })
+
   it("should publish hello-world", function(done){
     sdk.publish(project, domain, auth, {
       "file-count": "99",
       "cmd": "test",
       "project-size": "9999",
       "timestamp": new Date().toJSON()
+    }).on("invalid", function(error){
+      console.log("what!!")
+      return done()
     }).on("regionInfo", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       return done()
+    })
+  })
+
+  it("should include project in list", function(done){
+    sdk.list(auth, function(error, projects){
+      projects.should.be.instanceof(Array).and.have.lengthOf(1)
+      done()
     })
   })
 
@@ -77,8 +100,8 @@ describe("publish", function(){
       metadata.should.have.property("email", creds.user)
       metadata.should.have.property("platform")
       metadata.should.have.property("cliVersion", "999")
-      metadata.should.have.property("fileCount", 1)
-      metadata.should.have.property("totalSize", 21)
+      metadata.should.have.property("publicFileCount", 1)
+      metadata.should.have.property("publicTotalSize", 21)
       metadata.should.have.property("privateFileCount", 1)
       metadata.should.have.property("privateTotalSize", 21)
       metadata.should.have.property("uploadStartTime")
@@ -109,8 +132,8 @@ describe("publish", function(){
       projects[0].should.have.property("message")
       projects[0].should.have.property("buildTime")
       projects[0].should.have.property("privateFileList")
-      projects[0].should.have.property("fileCount", 1)
-      projects[0].should.have.property("totalSize")
+      projects[0].should.have.property("publicFileCount", 1)
+      projects[0].should.have.property("publicTotalSize")
       projects[0].should.have.property("privateFileCount", 1)
       projects[0].should.have.property("privateTotalSize")
       projects[0].should.have.property("uploadStartTime")
