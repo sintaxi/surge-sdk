@@ -116,7 +116,7 @@ describe("account", function(){
       "cmd": "test",
       "project-size": "9999",
       "timestamp": new Date().toJSON()
-    }).on("regionInfo", function(msg){
+    }).on("info", function(msg){
       sdk.nuke(auth, function(error){
         error.should.have.property("details")
         error.should.have.property("messages")

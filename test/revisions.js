@@ -27,7 +27,7 @@ describe("revisions", function(){
       "cmd": "test",
       "project-size": "9999",
       "timestamp": new Date().toJSON()
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       return done()
@@ -40,7 +40,7 @@ describe("revisions", function(){
       "cmd": "test",
       "project-size": "9999",
       "timestamp": new Date().toJSON()
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       return done()
@@ -53,7 +53,7 @@ describe("revisions", function(){
       "cmd": "test",
       "project-size": "9999",
       "timestamp": new Date().toJSON()
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       return done()
@@ -230,7 +230,7 @@ describe("revisions", function(){
       "project-size": "9999",
       "timestamp": new Date().toJSON(),
       "stage": true
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       sdk.list(domain, auth, function(error, revisions){
@@ -255,7 +255,7 @@ describe("revisions", function(){
       "project-size": "9999",
       "timestamp": new Date().toJSON(),
       "stage": true
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       sdk.list(domain, auth, function(error, revisions){
@@ -303,7 +303,7 @@ describe("revisions", function(){
       "project-size": "9999",
       "timestamp": new Date().toJSON(),
       "stage": true
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       sdk.list(domain, auth, function(error, revisions){
@@ -329,7 +329,7 @@ describe("revisions", function(){
       "cmd": "test",
       "project-size": "9999",
       "timestamp": new Date().toJSON()
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       sdk.list(domain, auth, function(error, revisions){

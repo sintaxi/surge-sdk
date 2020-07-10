@@ -43,7 +43,7 @@ describe("publish", function(){
     }).on("invalid", function(error){
       console.log("what!!")
       return done()
-    }).on("regionInfo", function(obj){
+    }).on("info", function(obj){
       obj.should.have.property("nsDomain")
       obj.should.have.property("regions")
       return done()
