@@ -44,8 +44,8 @@ describe("publish", function(){
       console.log("what!!")
       return done()
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      //obj.should.have.property("nsDomain")
+      obj.should.have.property("servers")
       return done()
     })
   })

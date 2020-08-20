@@ -28,8 +28,7 @@ describe("revisions", function(){
       "project-size": "9999",
       "timestamp": new Date().toJSON()
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      obj.should.have.property("servers")
       return done()
     })
   })
@@ -41,8 +40,7 @@ describe("revisions", function(){
       "project-size": "9999",
       "timestamp": new Date().toJSON()
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      obj.should.have.property("servers")
       return done()
     })
   })
@@ -54,8 +52,7 @@ describe("revisions", function(){
       "project-size": "9999",
       "timestamp": new Date().toJSON()
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      obj.should.have.property("servers")
       return done()
     })
   })
@@ -94,8 +91,7 @@ describe("revisions", function(){
     sdk.rollback(domain, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(3)
@@ -111,8 +107,7 @@ describe("revisions", function(){
     sdk.rollback(domain, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(3)
@@ -131,8 +126,7 @@ describe("revisions", function(){
     sdk.rollfore(domain, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(3)
@@ -151,8 +145,7 @@ describe("revisions", function(){
     sdk.rollfore(domain, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(3)
@@ -168,8 +161,7 @@ describe("revisions", function(){
     sdk.rollfore(domain, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(3)
@@ -207,8 +199,7 @@ describe("revisions", function(){
     sdk.cutover(domain, rev, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(3)
@@ -231,8 +222,7 @@ describe("revisions", function(){
       "timestamp": new Date().toJSON(),
       "stage": true
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      obj.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(4)
@@ -256,8 +246,7 @@ describe("revisions", function(){
       "timestamp": new Date().toJSON(),
       "stage": true
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      obj.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(5)
@@ -278,8 +267,7 @@ describe("revisions", function(){
     sdk.cutover(domain, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(5)
@@ -304,8 +292,7 @@ describe("revisions", function(){
       "timestamp": new Date().toJSON(),
       "stage": true
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      obj.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(6)
@@ -330,8 +317,7 @@ describe("revisions", function(){
       "project-size": "9999",
       "timestamp": new Date().toJSON()
     }).on("info", function(obj){
-      obj.should.have.property("nsDomain")
-      obj.should.have.property("regions")
+      obj.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(7)
@@ -355,8 +341,7 @@ describe("revisions", function(){
     sdk.discard(domain, revisionToDel, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("revision")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       sdk.list(domain, auth, function(error, revisions){
         should.not.exist(error)
         revisions.should.be.instanceof(Array).and.have.lengthOf(6)
@@ -369,8 +354,7 @@ describe("revisions", function(){
     sdk.teardown(domain, auth, function(error, cloudInfo){
       should.not.exist(error)
       cloudInfo.should.have.property("msg")
-      cloudInfo.should.have.property("regions")
-      cloudInfo.should.have.property("nsDomain")
+      cloudInfo.should.have.property("servers")
       return done()
     })
   })
