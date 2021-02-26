@@ -4,7 +4,7 @@
   "description": "javascript SDK for surge.sh",
   "main": "lib/sdk.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test --timeout 5000"
   },
   "repository": {
     "type": "git",

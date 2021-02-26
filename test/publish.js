@@ -45,7 +45,7 @@ describe("publish", function(){
       return done()
     }).on("info", function(obj){
       //obj.should.have.property("nsDomain")
-      obj.should.have.property("servers")
+      obj.should.have.property("instances")
       return done()
     })
   })
