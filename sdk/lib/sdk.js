@@ -1,18 +1,11 @@
 
-var path          = require("path")
-var fs            = require("fs")
-var url           = require("url")
-var EventEmitter  = require('events')
-var split         = require("split")
-var zlib          = require('zlib')
-var tar           = require('tarr')
-var fsReader      = require('surge-fstream-ignore')
-var ignore        = require("surge-ignore")
-var request       = require("request")
-var axios         = require("axios")
+var axios = require("axios")
 
+var sdk = function(config, surgeStream){
 
-var sdk = function(config){
+  if (surgeStream){
+    var stream = surgeStream(config)
+  }
 
   config.defaults = Object.assign({
     401: function(e, r, b){ console.log("Unauthorized"); },
@@ -44,7 +37,10 @@ var sdk = function(config){
     }
   }
 
-  var failResponse = { errors:  [ "request did not complete" ], details: {"request": "did not complete" }}
+  var failResponse = { 
+    errors:  [ "request did not complete" ], 
+    details: {"request": "did not complete" }
+  }
 
   var agent = axios.create({
     baseURL: config.endpoint
@@ -58,13 +54,20 @@ var sdk = function(config){
       if (error.response){
         error.response.data.status = error.response.status
         return callback(error.response.data)
-      } 
-      if (error.request) return callback({ errors: [ "request did not complete" ], details: {"request": "did not complete" }})
+      }
+      if (error.request) return callback(failResponse)
       return console.log('Error', error.message)
     })
   }
 
+  var placeholder = function(){
+    console.log("`surge-stream` not found")
+  }
+
   return {
+
+    publish: stream.publish || placeholder,
+    encrypt: stream.encrypt || placeholder,
 
     stats: function(callback){
       return call({
@@ -112,114 +115,6 @@ var sdk = function(config){
         method: "GET",
         auth: creds(userCreds)
       }, callback)
-    },
-
-    encrypt: function(projectDomain, userCreds, headers, argv){
-      var success = false
-
-      headers = Object.assign({ version: config.version }, headers || {})
-
-      if (argv) headers.argv = JSON.stringify(argv)
-      
-      var emitter   = new EventEmitter()
-      
-      var handshake = request.put(url.resolve(config.endpoint, projectDomain + "/encrypt"), { headers: headers })
-      handshake.auth(userCreds.user, userCreds.pass, true)
-      
-      handshake.pipe(split()).on("data", function(data){
-        try{
-          var obj = JSON.parse(data)
-          emitter.emit("data", obj)
-          
-          if (obj.type === "info") success = true
-
-          var t = obj.type; 
-          delete obj.type
-
-          emitter.emit(t, obj)
-        }catch(e){
-          //console.log(e)
-        }
-      })
-
-      handshake.on('error', function(error){
-        emitter.emit("error", error)
-      })
-
-      handshake.on('end', function(){
-        success === true
-          ? emitter.emit("success")
-          : emitter.emit("fail")
-      })
-
-      handshake.on("response", function(rsp){
-        // emitter.emit("response", rsp)
-        if (rsp.statusCode == 401) emitter.emit("unauthorized", rsp.headers["reason"] || "Unauthorized")
-        if (rsp.statusCode == 403) emitter.emit("forbidden", rsp.headers["reason"] || "Forbidden")
-        if (rsp.statusCode == 422) emitter.emit("invalid", rsp.headers["reason"] || "Invalid")
-      })
-    
-      // var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
-      // project.addIgnoreRules(ignore)
-      // project.pipe(tar.Pack()).pipe(zlib.Gzip()).pipe(handshake)
-
-      //project.pipe(handshake)
-
-      //handshake.pipe()
-
-      return emitter
-    },
-
-    publish: function(projectPath, projectDomain, userCreds, headers, argv){
-      var success = false
-
-      headers = Object.assign({ version: config.version }, headers || {})
-
-      if (argv) headers.argv = JSON.stringify(argv)
-      
-      var emitter   = new EventEmitter()
-      
-      var handshake = request.put(url.resolve(config.endpoint, projectDomain), { headers: headers })
-      handshake.auth(userCreds.user, userCreds.pass, true)
-      
-      handshake.pipe(split()).on("data", function(data){
-        try{
-          var obj = JSON.parse(data)
-          emitter.emit("data", obj)
-          
-          if (obj.type === "info") success = true
-
-          var t = obj.type; 
-          delete obj.type
-
-          emitter.emit(t, obj)
-        }catch(e){
-          //console.log(e)
-        }
-      })
-
-      handshake.on('error', function(error){
-        emitter.emit("error", error)
-      })
-
-      handshake.on('end', function(){
-        success === true
-          ? emitter.emit("success")
-          : emitter.emit("fail")
-      })
-
-      handshake.on("response", function(rsp){
-        // emitter.emit("response", rsp)
-        if (rsp.statusCode == 401) emitter.emit("unauthorized", rsp.headers["reason"] || "Unauthorized")
-        if (rsp.statusCode == 403) emitter.emit("forbidden", rsp.headers["reason"] || "Forbidden")
-        if (rsp.statusCode == 422) emitter.emit("invalid", rsp.headers["reason"] || "Invalid")
-      })
-    
-      var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
-      project.addIgnoreRules(ignore)
-      project.pipe(tar.Pack()).pipe(zlib.Gzip()).pipe(handshake)
-
-      return emitter
     },
 
     metadata: function(projectDomain, projectRevision, userCreds, callback){
@@ -546,14 +441,6 @@ var sdk = function(config){
     }
 
   }
-}
-
-sdk.testFiles = function(){
-  return fs.readdirSync(__dirname + "/../test").filter(function(file) {
-    return file.substr(-3) === '.js'
-  }).map(function(file){
-    return path.resolve( __dirname + "/../test/" + file)
-  })
 }
 
 module.exports = sdk

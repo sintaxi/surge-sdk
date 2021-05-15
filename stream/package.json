@@ -1,0 +1,29 @@
+{
+  "name": "surge-stream",
+  "version": "0.5.0",
+  "description": "JavaScript stream library for publishing to surge.sh",
+  "main": "lib/stream.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sintaxi/surge-sdk.git"
+  },
+  "author": "Brock Whitten <brock@chloi.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sintaxi/surge-sdk/issues"
+  },
+  "homepage": "https://github.com/sintaxi/surge-sdk#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "request": "^2.88.0",
+    "split": "^1.0.1",
+    "surge-fstream-ignore": "^1.0.6",
+    "surge-ignore": "^0.3.0",
+    "tarr": "^1.1.0",
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.2",
+    "should": "^13.2.3"
+  }
+}

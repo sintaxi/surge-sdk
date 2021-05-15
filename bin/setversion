@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+var fs = require("fs")
+var path = require("path")
+
+var pkgToGetPath  = __dirname + "/../package.json"
+var pkgToGet      = require(pkgToGetPath)
+
+var pkgToSetPath  = path.resolve(process.cwd(), process.argv[2])
+var pkgToSet      = require(pkgToSetPath)
+
+pkgToSet.version = pkgToGet.version
+
+fs.writeFile(pkgToSetPath, JSON.stringify(pkgToSet, null, 2), function(err){
+  process.exit(!!err)
+})
+

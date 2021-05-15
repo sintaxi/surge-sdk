@@ -1,0 +1,23 @@
+{
+  "name": "surge-sdk",
+  "version": "0.5.0",
+  "description": "javascript SDK for surge.sh",
+  "main": "lib/sdk.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sintaxi/surge-sdk.git"
+  },
+  "author": "Brock Whitten <brock@chloi.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sintaxi/surge-sdk/issues"
+  },
+  "homepage": "https://github.com/sintaxi/surge-sdk#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.2",
+    "should": "^13.2.3"
+  }
+}

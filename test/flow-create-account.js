@@ -2,6 +2,9 @@
 var should      = require("should")
 var sdkConfPath = process.env.sdkconf || "./config/sdk.json"
 var sdkConf     = require(sdkConfPath)
+var stream      = require("../stream")
+var sdk         = require("../sdk")(sdkConf, stream)
+
 var stamp       = "t" + new Date().toJSON().split("-").join("").split(":").join("").split(".").join("")
 
 
@@ -13,8 +16,6 @@ describe("flow create account " + stamp, function(){
 
   var projectPath = __dirname + "/mocks/hello-world"
   var auth, accountObject;
-  
-  var sdk  = require("../")(Object.assign(sdkConf, { defaults: { 401: new Function() }}))
 
   it("should create account", function(done){
     sdk.account(creds, function(error, account){

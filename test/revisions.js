@@ -2,7 +2,10 @@
 var should      = require("should")
 var sdkConfPath = process.env.sdkconf || "./config/sdk.json"
 var sdkConf     = require(sdkConfPath)
-var sdk         = require("../")(sdkConf)
+
+var stream      = require("../stream")
+var sdk         = require("../sdk")(sdkConf, stream)
+
 var stamp       = "t" + new Date().toJSON().split("-").join("").split(":").join("").split(".").join("").toLowerCase()
 var creds       = { user: stamp + "@chloi.io", pass: "secret" }
 var projectOne  = "one-" + stamp + ".lvh.me"
