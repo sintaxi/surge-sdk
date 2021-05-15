@@ -4,7 +4,11 @@
   "description": "javascript SDK for surge.sh",
   "main": "lib/sdk.js",
   "scripts": {
-    "test": "mocha test --timeout 5000"
+    "test": "mocha test --timeout 5000",
+    "test:account": "mocha test/account.js -t 5000",
+    "test:publish": "mocha test/publish.js -t 5000",
+    "test:revisions": "mocha test/revisions.js -t 5000",
+    "test:flow-create-account": "mocha test/flow-create-account.js -t 5000"
   },
   "repository": {
     "type": "git",
@@ -17,6 +21,8 @@
   },
   "homepage": "https://github.com/sintaxi/surge-sdk#readme",
   "dependencies": {
+    "axios": "^0.21.1",
+    "node-fetch": "^2.6.1",
     "request": "^2.88.0",
     "split": "^1.0.1",
     "surge-fstream-ignore": "^1.0.6",

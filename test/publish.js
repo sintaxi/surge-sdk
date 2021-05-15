@@ -3,12 +3,15 @@ var should      = require("should")
 var sdkConfPath = process.env.sdkconf || "./config/sdk.json"
 var sdkConf     = require(sdkConfPath)
 var sdk         = require("../")(sdkConf)
+var stamp       = "t" + new Date().toJSON().split("-").join("").split(":").join("").split(".").join("").toLowerCase()
+var creds       = { user: stamp + "@chloi.io", pass: "secret" }
+var projectOne  = "one-" + stamp + ".lvh.me"
+var projectTwo  = "two-" + stamp + ".lvh.me"
 
 
 describe("publish", function(){
-  var project     = __dirname + "/mocks/hello-world"
-  var creds       = { user: "brock@chloi.io", pass: "secret" }
-  var domain = "hello-world.lvh.me"
+  var project   = __dirname + "/mocks/hello-world"
+  var domain    = projectOne
   var auth, accountObject;
   
 
@@ -121,7 +124,7 @@ describe("publish", function(){
   it("should fetch list which includes hello-world project", function(done){
     sdk.list(auth, function(errrors, projects){
       projects.should.be.instanceof(Array).and.have.lengthOf(1)
-      projects[0].should.have.property("domain", "hello-world.lvh.me")
+      projects[0].should.have.property("domain", projectOne)
       projects[0].should.have.property("rev")
       projects[0].should.have.property("cmd", "test")
       projects[0].should.have.property("email", creds.user)

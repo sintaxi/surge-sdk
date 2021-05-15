@@ -3,12 +3,15 @@ var should      = require("should")
 var sdkConfPath = process.env.sdkconf || "./config/sdk.json"
 var sdkConf     = require(sdkConfPath)
 var sdk         = require("../")(sdkConf)
+var stamp       = "t" + new Date().toJSON().split("-").join("").split(":").join("").split(".").join("").toLowerCase()
+var creds       = { user: stamp + "@chloi.io", pass: "secret" }
+var projectOne  = "one-" + stamp + ".lvh.me"
+var projectTwo  = "two-" + stamp + ".lvh.me"
 
 
 describe("revisions", function(){
-  var project     = __dirname + "/mocks/hello-world"
-  var creds       = { user: "brock@chloi.io", pass: "secret" }
-  var domain = "hello-world.lvh.me"
+  var project   = __dirname + "/mocks/hello-world"
+  var domain    = projectOne
   var auth, accountObject, revisionToSet, revisionToDel;
   
 

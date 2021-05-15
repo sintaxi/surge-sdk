@@ -2,11 +2,10 @@
 var should      = require("should")
 var sdkConfPath = process.env.sdkconf || "./config/sdk.json"
 var sdkConf     = require(sdkConfPath)
-
-
+var stamp       = "t" + new Date().toJSON().split("-").join("").split(":").join("").split(".").join("")
+var creds       = { user: stamp + "@chloi.io", pass: "secret" }
 
 describe("account", function(){
-  var creds     = { user: "brock@chloi.io", pass: "secret" }
   var projectPath = __dirname + "/mocks/hello-world"
   var auth, accountObject;
   
@@ -103,6 +102,7 @@ describe("account", function(){
 
   it("should fail to remove account with invalid token", function(done){
     sdk.nuke({ user: "token", pass: "123" }, function(error, account){
+      should.exist(error)
       error.should.have.property("details")
       error.should.have.property("messages")
       error.should.have.property("status", 401)
