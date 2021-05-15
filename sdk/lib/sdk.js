@@ -66,8 +66,8 @@ var sdk = function(config, surgeStream){
 
   return {
 
-    publish: stream.publish || placeholder,
-    encrypt: stream.encrypt || placeholder,
+    publish: stream ? stream.publish : placeholder,
+    encrypt: stream ? stream.encrypt : placeholder,
 
     stats: function(callback){
       return call({

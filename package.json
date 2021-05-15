@@ -1,7 +1,8 @@
 {
-  "version": "0.5.0",
+  "version": "0.5.1",
   "scripts": {
     "test": "mocha test --timeout 5000",
+    "test:basic": "mocha test/basic.js -t 5000",
     "test:account": "mocha test/account.js -t 5000",
     "test:publish": "mocha test/publish.js -t 5000",
     "test:revisions": "mocha test/revisions.js -t 5000",
