@@ -1,5 +1,8 @@
+
 # surge-sdk
 
-> JavaScript SDK for publishing to the Surge.sh Platform.
+> JavaScript SDK for publishing to the Surge.sh
 
-Used by https://github.com/sintaxi/surge
+# surge-stream
+
+> JavaScript Stream library for publishing to Surge.sh

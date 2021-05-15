@@ -8,8 +8,8 @@
     "test:flow-create-account": "mocha test/flow-create-account.js -t 5000",
     "prepublish:sdk": "./bin/setversion ./sdk/package.json",
     "prepublish:stream": "./bin/setversion ./stream/package.json",
-    "publish:sdk": "cd sdk && ls",
-    "publish:stream": "cd stream && ls",
+    "publish:sdk": "cd sdk && npm publish",
+    "publish:stream": "cd stream && npm publish",
     "publish": "npm run publish:sdk && npm run publish:stream"
   },
   "devDependencies": {
