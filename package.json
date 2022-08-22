@@ -1,5 +1,5 @@
 {
-  "version": "0.5.1",
+  "version": "0.5.2",
   "scripts": {
     "test": "mocha test --timeout 5000",
     "test:basic": "mocha test/basic.js -t 5000",
@@ -7,8 +7,10 @@
     "test:publish": "mocha test/publish.js -t 5000",
     "test:revisions": "mocha test/revisions.js -t 5000",
     "test:flow-create-account": "mocha test/flow-create-account.js -t 5000",
-    "prepublish:sdk": "./bin/setversion ./sdk/package.json",
-    "prepublish:stream": "./bin/setversion ./stream/package.json",
+    "setversion:sdk": "./bin/setversion ./sdk/package.json && cd sdk && npm install",
+    "setversion:stream": "./bin/setversion ./stream/package.json && cd stream && npm install",
+    "setversion": "npm run setversion:sdk && npm run setversion:stream",
+    "prepublish": "npm run setversion",
     "publish:sdk": "cd sdk && npm publish",
     "publish:stream": "cd stream && npm publish",
     "publish": "npm run publish:sdk && npm run publish:stream"
