@@ -122,6 +122,67 @@ var stream = function(config){
       return emitter
     },
 
+    publishWIP: function(projectPath, projectDomain, userCreds, headers, argv){
+      var success = false
+
+      headers = Object.assign({ version: config.version }, headers || {})
+      if (argv) headers.argv = JSON.stringify(argv)
+      var emitter = new EventEmitter()
+
+      var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
+      project.addIgnoreRules(ignore)
+
+      var readStream = project.pipe(tar.Pack()).pipe(zlib.Gzip())
+
+
+      headers["content-type"] = ""
+      headers["accept"] = "application/ndjson"
+
+      axios({ 
+        method: "PUT",
+        url: url.resolve(config.endpoint, projectDomain),
+        responseType: "stream",
+        headers: headers,
+        data: readStream,
+        auth: {
+          username: userCreds.user,
+          password: userCreds.pass
+        }
+      }).then(handshake => {
+        handshake.pipe(split()).on("data", function(data){
+          try{
+            var obj = JSON.parse(data)
+            emitter.emit("data", obj)
+            
+            if (obj.type === "info") success = true
+
+            var t = obj.type; 
+            delete obj.type
+
+            emitter.emit(t, obj)
+          }catch(e){
+            //console.log(e)
+          }
+        })
+
+        handshake.on('error', function(error){
+          emitter.emit("error", error)
+        })
+
+        handshake.on('end', function(){
+          success === true
+            ? emitter.emit("success")
+            : emitter.emit("fail")
+        })
+      }).catch(error => {
+        if (error.response.status == 401) emitter.emit("unauthorized", error.response.headers["reason"] || "Unauthorized")
+        if (error.response.status == 403) emitter.emit("forbidden", error.response.headers["reason"] || "Forbidden")
+        if (error.response.status == 422) emitter.emit("invalid", error.response.headers["reason"] || "Invalid")
+      })
+
+      return emitter
+    },
+
     publish: function(projectPath, projectDomain, userCreds, headers, argv){
       var success = false
 

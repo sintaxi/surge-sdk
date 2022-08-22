@@ -1,6 +1,6 @@
 {
   "name": "surge-stream",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "JavaScript stream library for publishing to surge.sh",
   "main": "lib/stream.js",
   "repository": {
@@ -21,9 +21,5 @@
     "surge-ignore": "^0.3.0",
     "tarr": "^1.1.0",
     "zlib": "^1.0.5"
-  },
-  "devDependencies": {
-    "mocha": "^7.1.2",
-    "should": "^13.2.3"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "surge-sdk",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "JavaScript SDK for surge.sh",
   "main": "lib/sdk.js",
   "repository": {
@@ -15,9 +15,5 @@
   "homepage": "https://github.com/sintaxi/surge-sdk#readme",
   "dependencies": {
     "axios": "^0.21.1"
-  },
-  "devDependencies": {
-    "mocha": "^7.1.2",
-    "should": "^13.2.3"
   }
 }
