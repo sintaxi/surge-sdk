@@ -1,5 +1,5 @@
 {
-  "version": "0.6.0",
+  "version": "0.6.1",
   "scripts": {
     "test": "mocha test --timeout 5000",
     "test:basic": "mocha test/basic.js -t 5000",
