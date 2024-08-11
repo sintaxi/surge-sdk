@@ -1,5 +1,5 @@
 {
-  "version": "0.6.1",
+  "version": "0.6.0",
   "scripts": {
     "test": "mocha test --timeout 5000",
     "test:basic": "mocha test/basic.js -t 5000",
@@ -10,6 +10,10 @@
     "setversion:sdk": "./bin/setversion ./sdk/package.json && cd sdk && npm install",
     "setversion:stream": "./bin/setversion ./stream/package.json && cd stream && npm install",
     "setversion": "npm run setversion:sdk && npm run setversion:stream",
+    "preversion": "npm test",
+    "version": "npm run setversion && npm run publish",
+    "postversion": "git push --no-verify && git push --tags --no-verify && git push --no-verify",
+
     "prepublish": "npm run setversion",
     "publish:sdk": "cd sdk && npm publish",
     "publish:stream": "cd stream && npm publish",
