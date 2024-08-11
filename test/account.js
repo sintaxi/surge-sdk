@@ -10,6 +10,7 @@ var creds       = { user: stamp + "@chloi.io", pass: "secret" }
 describe("account", function(){
   var projectPath = __dirname + "/mocks/hello-world"
   var auth, accountObject;
+  var domainName = `abc${ Math.floor(Math.random() * 1000) }.lvh.me`
   
   
   it("should return site stats", function(done){
@@ -111,7 +112,7 @@ describe("account", function(){
   })
 
   it("should fail to nuke with projects", function(done){
-    sdk.publish(projectPath, "abc.lvh.me", auth, {
+    sdk.publish(projectPath, domainName, auth, {
       "file-count": "99",
       "cmd": "test",
       "project-size": "9999",
@@ -127,7 +128,7 @@ describe("account", function(){
   })
 
   it("should be able to nuke account once project is removed", function(done){
-    sdk.teardown("abc.lvh.me", auth, function(error, info){
+    sdk.teardown(domainName, auth, function(error, info){
       should.not.exist(error)
       sdk.nuke(auth, function(error, info){
         should.not.exist(error)

@@ -222,6 +222,7 @@ var stream = function(config){
       })
 
       handshake.on("response", function(rsp){
+        // console.log("have response", rsp)
         // emitter.emit("response", rsp)
         if (rsp.statusCode == 401) emitter.emit("unauthorized", rsp.headers["reason"] || "Unauthorized")
         if (rsp.statusCode == 403) emitter.emit("forbidden", rsp.headers["reason"] || "Forbidden")

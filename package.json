@@ -19,7 +19,7 @@
     "publish": "npm run publish:sdk && npm run publish:stream"
   },
   "devDependencies": {
-    "mocha": "^7.1.2",
+    "mocha": "10.7.3",
     "should": "^13.2.3"
   }
 }
