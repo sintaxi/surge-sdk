@@ -1,6 +1,6 @@
 {
   "name": "surge-stream",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "JavaScript stream library for publishing to surge.sh",
   "main": "lib/stream.js",
   "repository": {
@@ -14,10 +14,10 @@
   },
   "homepage": "https://github.com/sintaxi/surge-sdk#readme",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "1.7.3",
     "request": "^2.88.0",
     "split": "^1.0.1",
-    "surge-fstream-ignore": "^1.0.6",
+    "surge-fstream-ignore": "^1.1.0",
     "surge-ignore": "^0.3.0",
     "tarr": "^1.1.0",
     "zlib": "^1.0.5"
