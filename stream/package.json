@@ -19,7 +19,6 @@
     "split": "^1.0.1",
     "surge-fstream-ignore": "^1.1.0",
     "surge-ignore": "^0.3.0",
-    "tarr": "^1.1.0",
-    "zlib": "^1.0.5"
+    "tarr": "^1.1.0"
   }
 }
