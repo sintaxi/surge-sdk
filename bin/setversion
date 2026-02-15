@@ -12,6 +12,6 @@ var pkgToSet      = require(pkgToSetPath)
 pkgToSet.version = pkgToGet.version
 
 fs.writeFile(pkgToSetPath, JSON.stringify(pkgToSet, null, 2), function(err){
-  process.exit(!!err)
+  process.exit(err ? 1 : 0)
 })
 
