@@ -8,8 +8,15 @@ var zlib          = require('zlib')
 var tar           = require('tarr')
 var fsReader      = require('surge-fstream-ignore')
 var ignore        = require("surge-ignore")
-var request       = require("request")
 var axios         = require("axios")
+
+// Optional: request is deprecated, only loaded if useAxios=false
+var request
+try {
+  request = require("request")
+} catch (e) {
+  request = null
+}
 
 
 var stream = function(config){
@@ -102,6 +109,9 @@ var stream = function(config){
   // ============================================================
 
   var _publishWithRequest = function(projectPath, projectDomain, userCreds, headers, argv){
+    if (!request) {
+      throw new Error('request library not installed. Run "npm install request" or set useAxios=true')
+    }
     var success = { value: false }
 
     headers = Object.assign({ version: config.version }, headers || {})
@@ -136,6 +146,9 @@ var stream = function(config){
   }
 
   var _encryptWithRequest = function(projectDomain, userCreds, headers, argv){
+    if (!request) {
+      throw new Error('request library not installed. Run "npm install request" or set useAxios=true')
+    }
     var success = { value: false }
 
     headers = Object.assign({ version: config.version }, headers || {})
@@ -196,7 +209,9 @@ var stream = function(config){
       data: projectStream,
       auth: credentials,
       maxBodyLength: Infinity,
-      maxContentLength: Infinity
+      maxContentLength: Infinity,
+      httpAgent: false,
+      httpsAgent: false
     }).then(function(response){
       var responseStream = response.data
 
@@ -249,7 +264,9 @@ var stream = function(config){
       url: url.resolve(config.endpoint, projectDomain + "/encrypt"),
       responseType: "stream",
       headers: headers,
-      auth: credentials
+      auth: credentials,
+      httpAgent: false,
+      httpsAgent: false
     }).then(function(response){
       var responseStream = response.data
 
