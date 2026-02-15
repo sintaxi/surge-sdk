@@ -14,6 +14,9 @@ var axios         = require("axios")
 
 var stream = function(config){
 
+  // Toggle implementation: false = request (stable), true = axios (experimental)
+  config.useAxios = true
+
   config.defaults = Object.assign({
     401: function(e, r, b){ console.log("Unauthorized"); },
     417: function(e, r, b){ console.log("Upgrade Required"); },
@@ -48,7 +51,6 @@ var stream = function(config){
 
   var agent = axios.create({
     baseURL: config.endpoint
-    //headers: {'version': config.version }
   })
 
   var call = function(args, callback){
@@ -58,183 +60,257 @@ var stream = function(config){
       if (error.response){
         error.response.data.status = error.response.status
         return callback(error.response.data)
-      } 
+      }
       if (error.request) return callback({ errors: [ "request did not complete" ], details: {"request": "did not complete" }})
       return console.log('Error', error.message)
     })
   }
 
-  return {
+  // Helper: Create project read stream with tar + gzip
+  var createProjectStream = function(projectPath){
+    var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
+    project.addIgnoreRules(ignore)
+    return project.pipe(tar.Pack()).pipe(zlib.Gzip())
+  }
 
-    encrypt: function(projectDomain, userCreds, headers, argv){
-      var success = false
+  // Helper: Handle NDJSON response data and emit events
+  var handleResponseData = function(emitter, data, successRef){
+    try {
+      var obj = JSON.parse(data)
+      emitter.emit("data", obj)
 
-      headers = Object.assign({ version: config.version }, headers || {})
+      if (obj.type === "info") successRef.value = true
 
-      if (argv) headers.argv = JSON.stringify(argv)
-      
-      var emitter   = new EventEmitter()
-      
-      var handshake = request.put(url.resolve(config.endpoint, projectDomain + "/encrypt"), { headers: headers })
-      handshake.auth(userCreds.user, userCreds.pass, true)
-      
-      handshake.pipe(split()).on("data", function(data){
-        try{
-          var obj = JSON.parse(data)
-          emitter.emit("data", obj)
-          
-          if (obj.type === "info") success = true
+      var t = obj.type
+      delete obj.type
 
-          var t = obj.type; 
-          delete obj.type
+      emitter.emit(t, obj)
+    } catch(e) {
+      // Ignore JSON parse errors (empty lines, etc)
+    }
+  }
 
-          emitter.emit(t, obj)
-        }catch(e){
-          //console.log(e)
-        }
+  // Helper: Handle HTTP error status codes
+  var handleErrorStatus = function(emitter, statusCode, headers){
+    if (statusCode == 401) emitter.emit("unauthorized", headers["reason"] || "Unauthorized")
+    if (statusCode == 403) emitter.emit("forbidden", headers["reason"] || "Forbidden")
+    if (statusCode == 422) emitter.emit("invalid", headers["reason"] || "Invalid")
+  }
+
+  // ============================================================
+  // REQUEST-BASED IMPLEMENTATIONS (original, stable)
+  // ============================================================
+
+  var _publishWithRequest = function(projectPath, projectDomain, userCreds, headers, argv){
+    var success = { value: false }
+
+    headers = Object.assign({ version: config.version }, headers || {})
+    if (argv) headers.argv = JSON.stringify(argv)
+
+    var emitter = new EventEmitter()
+
+    var handshake = request.put(url.resolve(config.endpoint, projectDomain), { headers: headers })
+    handshake.auth(userCreds.user, userCreds.pass, true)
+
+    handshake.pipe(split()).on("data", function(data){
+      handleResponseData(emitter, data, success)
+    })
+
+    handshake.on('error', function(error){
+      emitter.emit("error", error)
+    })
+
+    handshake.on('end', function(){
+      success.value === true
+        ? emitter.emit("success")
+        : emitter.emit("fail")
+    })
+
+    handshake.on("response", function(rsp){
+      handleErrorStatus(emitter, rsp.statusCode, rsp.headers)
+    })
+
+    createProjectStream(projectPath).pipe(handshake)
+
+    return emitter
+  }
+
+  var _encryptWithRequest = function(projectDomain, userCreds, headers, argv){
+    var success = { value: false }
+
+    headers = Object.assign({ version: config.version }, headers || {})
+    if (argv) headers.argv = JSON.stringify(argv)
+
+    var emitter = new EventEmitter()
+
+    var handshake = request.put(url.resolve(config.endpoint, projectDomain + "/encrypt"), { headers: headers })
+    handshake.auth(userCreds.user, userCreds.pass, true)
+
+    handshake.pipe(split()).on("data", function(data){
+      handleResponseData(emitter, data, success)
+    })
+
+    handshake.on('error', function(error){
+      emitter.emit("error", error)
+    })
+
+    handshake.on('end', function(){
+      success.value === true
+        ? emitter.emit("success")
+        : emitter.emit("fail")
+    })
+
+    handshake.on("response", function(rsp){
+      handleErrorStatus(emitter, rsp.statusCode, rsp.headers)
+    })
+
+    return emitter
+  }
+
+  // ============================================================
+  // AXIOS-BASED IMPLEMENTATIONS (new, experimental)
+  // ============================================================
+
+  var _publishWithAxios = function(projectPath, projectDomain, userCreds, headers, argv){
+    var success = { value: false }
+
+    headers = Object.assign({ version: config.version }, headers || {})
+    if (argv) headers.argv = JSON.stringify(argv)
+
+    var emitter = new EventEmitter()
+
+    var projectStream = createProjectStream(projectPath)
+
+    // Set headers for streaming upload
+    headers["content-type"] = "application/gzip"
+    headers["accept"] = "application/x-ndjson"
+    headers["transfer-encoding"] = "chunked"
+
+    var credentials = creds(userCreds)
+
+    axios({
+      method: "PUT",
+      url: url.resolve(config.endpoint, projectDomain),
+      responseType: "stream",
+      headers: headers,
+      data: projectStream,
+      auth: credentials,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity
+    }).then(function(response){
+      var responseStream = response.data
+
+      responseStream.pipe(split()).on("data", function(data){
+        handleResponseData(emitter, data, success)
       })
 
-      handshake.on('error', function(error){
+      responseStream.on('error', function(error){
         emitter.emit("error", error)
       })
 
-      handshake.on('end', function(){
-        success === true
+      responseStream.on('end', function(){
+        success.value === true
           ? emitter.emit("success")
           : emitter.emit("fail")
       })
+    }).catch(function(error){
+      // Handle axios errors
+      if (error.response) {
+        // Server responded with error status - emit status-specific event only
+        // (matches request-based implementation behavior)
+        handleErrorStatus(emitter, error.response.status, error.response.headers)
+        emitter.emit("fail")
+      } else if (error.request) {
+        // Request made but no response received - this is a real error
+        emitter.emit("fail")
+      } else {
+        // Error setting up request - this is a real error
+        emitter.emit("fail")
+      }
+    })
 
-      handshake.on("response", function(rsp){
-        // emitter.emit("response", rsp)
-        if (rsp.statusCode == 401) emitter.emit("unauthorized", rsp.headers["reason"] || "Unauthorized")
-        if (rsp.statusCode == 403) emitter.emit("forbidden", rsp.headers["reason"] || "Forbidden")
-        if (rsp.statusCode == 422) emitter.emit("invalid", rsp.headers["reason"] || "Invalid")
-      })
-    
-      // var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
-      // project.addIgnoreRules(ignore)
-      // project.pipe(tar.Pack()).pipe(zlib.Gzip()).pipe(handshake)
+    return emitter
+  }
 
-      //project.pipe(handshake)
+  var _encryptWithAxios = function(projectDomain, userCreds, headers, argv){
+    var success = { value: false }
 
-      //handshake.pipe()
+    headers = Object.assign({ version: config.version }, headers || {})
+    if (argv) headers.argv = JSON.stringify(argv)
 
-      return emitter
-    },
+    var emitter = new EventEmitter()
 
-    publishWIP: function(projectPath, projectDomain, userCreds, headers, argv){
-      var success = false
+    headers["accept"] = "application/x-ndjson"
 
-      headers = Object.assign({ version: config.version }, headers || {})
-      if (argv) headers.argv = JSON.stringify(argv)
-      var emitter = new EventEmitter()
+    var credentials = creds(userCreds)
 
-      var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
-      project.addIgnoreRules(ignore)
+    axios({
+      method: "PUT",
+      url: url.resolve(config.endpoint, projectDomain + "/encrypt"),
+      responseType: "stream",
+      headers: headers,
+      auth: credentials
+    }).then(function(response){
+      var responseStream = response.data
 
-      var readStream = project.pipe(tar.Pack()).pipe(zlib.Gzip())
-
-
-      headers["content-type"] = ""
-      headers["accept"] = "application/ndjson"
-
-      axios({ 
-        method: "PUT",
-        url: url.resolve(config.endpoint, projectDomain),
-        responseType: "stream",
-        headers: headers,
-        data: readStream,
-        auth: {
-          username: userCreds.user,
-          password: userCreds.pass
-        }
-      }).then(handshake => {
-        handshake.pipe(split()).on("data", function(data){
-          try{
-            var obj = JSON.parse(data)
-            emitter.emit("data", obj)
-            
-            if (obj.type === "info") success = true
-
-            var t = obj.type; 
-            delete obj.type
-
-            emitter.emit(t, obj)
-          }catch(e){
-            //console.log(e)
-          }
-        })
-
-        handshake.on('error', function(error){
-          emitter.emit("error", error)
-        })
-
-        handshake.on('end', function(){
-          success === true
-            ? emitter.emit("success")
-            : emitter.emit("fail")
-        })
-      }).catch(error => {
-        if (error.response.status == 401) emitter.emit("unauthorized", error.response.headers["reason"] || "Unauthorized")
-        if (error.response.status == 403) emitter.emit("forbidden", error.response.headers["reason"] || "Forbidden")
-        if (error.response.status == 422) emitter.emit("invalid", error.response.headers["reason"] || "Invalid")
+      responseStream.pipe(split()).on("data", function(data){
+        handleResponseData(emitter, data, success)
       })
 
-      return emitter
+      responseStream.on('error', function(error){
+        emitter.emit("error", error)
+      })
+
+      responseStream.on('end', function(){
+        success.value === true
+          ? emitter.emit("success")
+          : emitter.emit("fail")
+      })
+    }).catch(function(error){
+      if (error.response) {
+        // Server responded with error status - emit status-specific event only
+        handleErrorStatus(emitter, error.response.status, error.response.headers)
+        emitter.emit("fail")
+      } else if (error.request) {
+        // Request made but no response received
+        emitter.emit("fail")
+      } else {
+        // Error setting up request
+        emitter.emit("fail")
+      }
+    })
+
+    return emitter
+  }
+
+  // ============================================================
+  // PUBLIC API
+  // ============================================================
+
+  return {
+
+    // Expose implementation choice for testing/debugging
+    _useAxios: config.useAxios,
+
+    encrypt: function(projectDomain, userCreds, headers, argv){
+      if (config.useAxios) {
+        return _encryptWithAxios(projectDomain, userCreds, headers, argv)
+      }
+      return _encryptWithRequest(projectDomain, userCreds, headers, argv)
     },
 
     publish: function(projectPath, projectDomain, userCreds, headers, argv){
-      var success = false
+      if (config.useAxios) {
+        return _publishWithAxios(projectPath, projectDomain, userCreds, headers, argv)
+      }
+      return _publishWithRequest(projectPath, projectDomain, userCreds, headers, argv)
+    },
 
-      headers = Object.assign({ version: config.version }, headers || {})
-
-      if (argv) headers.argv = JSON.stringify(argv)
-      
-      var emitter   = new EventEmitter()
-      
-      var handshake = request.put(url.resolve(config.endpoint, projectDomain), { headers: headers })
-      handshake.auth(userCreds.user, userCreds.pass, true)
-      
-      handshake.pipe(split()).on("data", function(data){
-        try{
-          var obj = JSON.parse(data)
-          emitter.emit("data", obj)
-          
-          if (obj.type === "info") success = true
-
-          var t = obj.type; 
-          delete obj.type
-
-          emitter.emit(t, obj)
-        }catch(e){
-          //console.log(e)
-        }
-      })
-
-      handshake.on('error', function(error){
-        emitter.emit("error", error)
-      })
-
-      handshake.on('end', function(){
-        success === true
-          ? emitter.emit("success")
-          : emitter.emit("fail")
-      })
-
-      handshake.on("response", function(rsp){
-        // console.log("have response", rsp)
-        // emitter.emit("response", rsp)
-        if (rsp.statusCode == 401) emitter.emit("unauthorized", rsp.headers["reason"] || "Unauthorized")
-        if (rsp.statusCode == 403) emitter.emit("forbidden", rsp.headers["reason"] || "Forbidden")
-        if (rsp.statusCode == 422) emitter.emit("invalid", rsp.headers["reason"] || "Invalid")
-      })
-    
-      var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
-      project.addIgnoreRules(ignore)
-      project.pipe(tar.Pack()).pipe(zlib.Gzip()).pipe(handshake)
-
-      return emitter
-    }
+    // Direct access to specific implementations for testing
+    publishWithRequest: _publishWithRequest,
+    publishWithAxios: _publishWithAxios,
+    encryptWithRequest: _encryptWithRequest,
+    encryptWithAxios: _encryptWithAxios
 
   }
 }
