@@ -43,9 +43,7 @@ var sdk = function(config, surgeStream){
   }
 
   var agent = axios.create({
-    baseURL: config.endpoint,
-    httpAgent: false,
-    httpsAgent: false
+    baseURL: config.endpoint
   })
 
   var call = function(args, callback){

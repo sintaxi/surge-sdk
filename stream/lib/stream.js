@@ -246,9 +246,7 @@ var stream = function(config){
       data: projectStream,
       auth: credentials,
       maxBodyLength: Infinity,
-      maxContentLength: Infinity,
-      httpAgent: false,
-      httpsAgent: false
+      maxContentLength: Infinity
     }).then(function(response){
       var responseStream = response.data
 
@@ -301,9 +299,7 @@ var stream = function(config){
       url: url.resolve(config.endpoint, projectDomain + "/encrypt"),
       responseType: "stream",
       headers: headers,
-      auth: credentials,
-      httpAgent: false,
-      httpsAgent: false
+      auth: credentials
     }).then(function(response){
       var responseStream = response.data
 
@@ -360,9 +356,7 @@ var stream = function(config){
       data: pemStream,
       auth: credentials,
       maxBodyLength: Infinity,
-      maxContentLength: Infinity,
-      httpAgent: false,
-      httpsAgent: false
+      maxContentLength: Infinity
     }).then(function(response){
       var responseStream = response.data
 
