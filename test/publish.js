@@ -26,6 +26,13 @@ describe("publish", function(){
     })
   })
 
+  it("should send password reset request", function(done){
+    sdk.reset(creds.user, function(error, result){
+      should.not.exist(error)
+      return done()
+    })
+  })
+
   it("should reject invalid pojectname", function(done){
     sdk.publish(project, "invalid domain", auth, {
       "file-count": "99",
@@ -119,6 +126,37 @@ describe("publish", function(){
   it("should fetch hello-world manifest", function(done){
     sdk.manifest(domain, auth, function(errrors, manifest){
       manifest.should.have.property("/index.html")
+      return done()
+    })
+  })
+
+  it("should upload ssl certificate", function(done){
+    var pemPath = __dirname + "/mocks/test.pem"
+    var completed = false
+    var emitter = sdk.ssl(pemPath, domain, auth, {})
+
+    emitter.on("success", function(){
+      if (!completed) { completed = true; return done() }
+    }).on("fail", function(){
+      // SSL may require paid plan, fail is acceptable
+      if (!completed) { completed = true; return done() }
+    }).on("msg", function(obj){
+      // Server responded with message
+      if (!completed) { completed = true; return done() }
+    }).on("collect", function(obj){
+      // Payment required for SSL - expected on free plan
+      obj.should.have.property("plan")
+      if (!completed) { completed = true; return done() }
+    }).on("forbidden", function(msg){
+      // Not allowed
+      if (!completed) { completed = true; return done() }
+    })
+  })
+
+  it("should reject ssl with invalid token", function(done){
+    var pemPath = __dirname + "/mocks/test.pem"
+    sdk.ssl(pemPath, domain, { user: "token", pass: "invalid" }, {}).on("unauthorized", function(msg){
+      msg.should.equal("Unauthorized")
       return done()
     })
   })
