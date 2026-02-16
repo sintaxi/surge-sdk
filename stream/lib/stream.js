@@ -180,6 +180,43 @@ var stream = function(config){
     return emitter
   }
 
+  var _sslWithRequest = function(pemPath, projectDomain, userCreds, headers, argv){
+    if (!request) {
+      throw new Error('request library not installed. Run "npm install request" or set useAxios=true')
+    }
+    var success = { value: false }
+
+    headers = Object.assign({ version: config.version }, headers || {})
+    if (argv) headers.argv = JSON.stringify(argv)
+
+    var emitter = new EventEmitter()
+
+    var handshake = request.put(url.resolve(config.endpoint, projectDomain + "/ssl"), { headers: headers })
+    handshake.auth(userCreds.user, userCreds.pass, true)
+
+    handshake.pipe(split()).on("data", function(data){
+      handleResponseData(emitter, data, success)
+    })
+
+    handshake.on('error', function(error){
+      emitter.emit("error", error)
+    })
+
+    handshake.on('end', function(){
+      success.value === true
+        ? emitter.emit("success")
+        : emitter.emit("fail")
+    })
+
+    handshake.on("response", function(rsp){
+      handleErrorStatus(emitter, rsp.statusCode, rsp.headers)
+    })
+
+    fs.createReadStream(pemPath).pipe(handshake)
+
+    return emitter
+  }
+
   // ============================================================
   // AXIOS-BASED IMPLEMENTATIONS (new, experimental)
   // ============================================================
@@ -300,6 +337,62 @@ var stream = function(config){
     return emitter
   }
 
+  var _sslWithAxios = function(pemPath, projectDomain, userCreds, headers, argv){
+    var success = { value: false }
+
+    headers = Object.assign({ version: config.version }, headers || {})
+    if (argv) headers.argv = JSON.stringify(argv)
+
+    var emitter = new EventEmitter()
+
+    var pemStream = fs.createReadStream(pemPath)
+
+    headers["content-type"] = "application/x-pem-file"
+    headers["accept"] = "application/x-ndjson"
+
+    var credentials = creds(userCreds)
+
+    axios({
+      method: "PUT",
+      url: url.resolve(config.endpoint, projectDomain + "/ssl"),
+      responseType: "stream",
+      headers: headers,
+      data: pemStream,
+      auth: credentials,
+      maxBodyLength: Infinity,
+      maxContentLength: Infinity,
+      httpAgent: false,
+      httpsAgent: false
+    }).then(function(response){
+      var responseStream = response.data
+
+      responseStream.pipe(split()).on("data", function(data){
+        handleResponseData(emitter, data, success)
+      })
+
+      responseStream.on('error', function(error){
+        emitter.emit("error", error)
+      })
+
+      responseStream.on('end', function(){
+        success.value === true
+          ? emitter.emit("success")
+          : emitter.emit("fail")
+      })
+    }).catch(function(error){
+      if (error.response) {
+        handleErrorStatus(emitter, error.response.status, error.response.headers)
+        emitter.emit("fail")
+      } else if (error.request) {
+        emitter.emit("fail")
+      } else {
+        emitter.emit("fail")
+      }
+    })
+
+    return emitter
+  }
+
   // ============================================================
   // PUBLIC API
   // ============================================================
@@ -323,11 +416,20 @@ var stream = function(config){
       return _publishWithRequest(projectPath, projectDomain, userCreds, headers, argv)
     },
 
+    ssl: function(pemPath, projectDomain, userCreds, headers, argv){
+      if (config.useAxios) {
+        return _sslWithAxios(pemPath, projectDomain, userCreds, headers, argv)
+      }
+      return _sslWithRequest(pemPath, projectDomain, userCreds, headers, argv)
+    },
+
     // Direct access to specific implementations for testing
     publishWithRequest: _publishWithRequest,
     publishWithAxios: _publishWithAxios,
     encryptWithRequest: _encryptWithRequest,
-    encryptWithAxios: _encryptWithAxios
+    encryptWithAxios: _encryptWithAxios,
+    sslWithRequest: _sslWithRequest,
+    sslWithAxios: _sslWithAxios
 
   }
 }

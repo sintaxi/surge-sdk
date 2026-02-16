@@ -68,6 +68,7 @@ var sdk = function(config, surgeStream){
 
     publish: stream ? stream.publish : placeholder,
     encrypt: stream ? stream.encrypt : placeholder,
+    ssl: stream ? stream.ssl : placeholder,
 
     stats: function(callback){
       return call({
@@ -103,10 +104,17 @@ var sdk = function(config, surgeStream){
         if (error.response){
           error.response.data.status = error.response.status
           return callback(error.response.data)
-        } 
+        }
         if (error.request) return callback(failResponse)
         return console.log('Error', error.message)
       })
+    },
+
+    reset: function(email, callback){
+      return call({
+        url: "/token/reset/" + email,
+        method: "POST"
+      }, callback)
     },
 
     certs: function(projectDomain, userCreds, callback){
@@ -253,48 +261,18 @@ var sdk = function(config, surgeStream){
       return call({
         url: "/plan",
         method: "PUT",
-        auth: creds(userCreds)
+        auth: creds(userCreds),
+        data: args
       }, callback)
     },
 
     card: function(args, userCreds, callback){
-      // request({
-      //   "uri": url.resolve(config.endpoint, "card"),
-      //   "method": "PUT",
-      //   "auth": userCreds,
-      //   "form": args
-      // }, function(e,r,b){
-      //   handle(e,r,b)
-      //   var obj = JSON.parse(b)
-      //   if ([200,201].indexOf(r.statusCode) !== -1) {
-      //     var obj = JSON.parse(b)
-      //     return callback(null, obj)
-      //   } else {
-      //     return callback(obj)
-      //   }
-      // })
-
       return call({
         url: "/card",
         method: "PUT",
         auth: creds(userCreds),
         data: args
       }, callback)
-
-      // agent({
-      //   url: "/card",
-      //   method: "PUT",
-      //   auth: creds(userCreds)
-      // }).then(function(response){
-      //   return callback(null, response.data)
-      // }).catch(function(error){
-      //   if (error.response){
-      //     error.response.data.status = error.response.status
-      //     return callback(error.response.data)
-      //   }
-      //   if (error.request) return callback(failResponse)
-      //   return console.log('Error', error.message)
-      // })
     },
 
     plans: function(domain, headers, userCreds, callback){
