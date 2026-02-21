@@ -19,8 +19,5 @@
     "surge-fstream-ignore": "^1.1.0",
     "surge-ignore": "^0.3.0",
     "tarr": "^1.1.0"
-  },
-  "optionalDependencies": {
-    "request": "^2.88.0"
   }
 }

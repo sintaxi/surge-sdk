@@ -10,19 +10,8 @@ var fsReader      = require('surge-fstream-ignore')
 var ignore        = require("surge-ignore")
 var axios         = require("axios")
 
-// Optional: request is deprecated, only loaded if useAxios=false
-var request
-try {
-  request = require("request")
-} catch (e) {
-  request = null
-}
-
 
 var stream = function(config){
-
-  // Toggle implementation: false = request (stable), true = axios (experimental)
-  config.useAxios = true
 
   config.defaults = Object.assign({
     401: function(e, r, b){ console.log("Unauthorized"); },
@@ -105,120 +94,7 @@ var stream = function(config){
   }
 
   // ============================================================
-  // REQUEST-BASED IMPLEMENTATIONS (original, stable)
-  // ============================================================
-
-  var _publishWithRequest = function(projectPath, projectDomain, userCreds, headers, argv){
-    if (!request) {
-      throw new Error('request library not installed. Run "npm install request" or set useAxios=true')
-    }
-    var success = { value: false }
-
-    headers = Object.assign({ version: config.version }, headers || {})
-    if (argv) headers.argv = JSON.stringify(argv)
-
-    var emitter = new EventEmitter()
-
-    var handshake = request.put(url.resolve(config.endpoint, projectDomain), { headers: headers })
-    handshake.auth(userCreds.user, userCreds.pass, true)
-
-    handshake.pipe(split()).on("data", function(data){
-      handleResponseData(emitter, data, success)
-    })
-
-    handshake.on('error', function(error){
-      emitter.emit("error", error)
-    })
-
-    handshake.on('end', function(){
-      success.value === true
-        ? emitter.emit("success")
-        : emitter.emit("fail")
-    })
-
-    handshake.on("response", function(rsp){
-      handleErrorStatus(emitter, rsp.statusCode, rsp.headers)
-    })
-
-    createProjectStream(projectPath).pipe(handshake)
-
-    return emitter
-  }
-
-  var _encryptWithRequest = function(projectDomain, userCreds, headers, argv){
-    if (!request) {
-      throw new Error('request library not installed. Run "npm install request" or set useAxios=true')
-    }
-    var success = { value: false }
-
-    headers = Object.assign({ version: config.version }, headers || {})
-    if (argv) headers.argv = JSON.stringify(argv)
-
-    var emitter = new EventEmitter()
-
-    var handshake = request.put(url.resolve(config.endpoint, projectDomain + "/encrypt"), { headers: headers })
-    handshake.auth(userCreds.user, userCreds.pass, true)
-
-    handshake.pipe(split()).on("data", function(data){
-      handleResponseData(emitter, data, success)
-    })
-
-    handshake.on('error', function(error){
-      emitter.emit("error", error)
-    })
-
-    handshake.on('end', function(){
-      success.value === true
-        ? emitter.emit("success")
-        : emitter.emit("fail")
-    })
-
-    handshake.on("response", function(rsp){
-      handleErrorStatus(emitter, rsp.statusCode, rsp.headers)
-    })
-
-    return emitter
-  }
-
-  var _sslWithRequest = function(pemPath, projectDomain, userCreds, headers, argv){
-    if (!request) {
-      throw new Error('request library not installed. Run "npm install request" or set useAxios=true')
-    }
-    var success = { value: false }
-
-    headers = Object.assign({ version: config.version }, headers || {})
-    if (argv) headers.argv = JSON.stringify(argv)
-
-    var emitter = new EventEmitter()
-
-    var handshake = request.put(url.resolve(config.endpoint, projectDomain + "/ssl"), { headers: headers })
-    handshake.auth(userCreds.user, userCreds.pass, true)
-
-    handshake.pipe(split()).on("data", function(data){
-      handleResponseData(emitter, data, success)
-    })
-
-    handshake.on('error', function(error){
-      emitter.emit("error", error)
-    })
-
-    handshake.on('end', function(){
-      success.value === true
-        ? emitter.emit("success")
-        : emitter.emit("fail")
-    })
-
-    handshake.on("response", function(rsp){
-      handleErrorStatus(emitter, rsp.statusCode, rsp.headers)
-    })
-
-    fs.createReadStream(pemPath).pipe(handshake)
-
-    return emitter
-  }
-
-  // ============================================================
-  // AXIOS-BASED IMPLEMENTATIONS (new, experimental)
+  // AXIOS-BASED IMPLEMENTATIONS
   // ============================================================
 
   var _publishWithAxios = function(projectPath, projectDomain, userCreds, headers, argv){
@@ -392,39 +268,9 @@ var stream = function(config){
   // ============================================================
 
   return {
-
-    // Expose implementation choice for testing/debugging
-    _useAxios: config.useAxios,
-
-    encrypt: function(projectDomain, userCreds, headers, argv){
-      if (config.useAxios) {
-        return _encryptWithAxios(projectDomain, userCreds, headers, argv)
-      }
-      return _encryptWithRequest(projectDomain, userCreds, headers, argv)
-    },
-
-    publish: function(projectPath, projectDomain, userCreds, headers, argv){
-      if (config.useAxios) {
-        return _publishWithAxios(projectPath, projectDomain, userCreds, headers, argv)
-      }
-      return _publishWithRequest(projectPath, projectDomain, userCreds, headers, argv)
-    },
-
-    ssl: function(pemPath, projectDomain, userCreds, headers, argv){
-      if (config.useAxios) {
-        return _sslWithAxios(pemPath, projectDomain, userCreds, headers, argv)
-      }
-      return _sslWithRequest(pemPath, projectDomain, userCreds, headers, argv)
-    },
-
-    // Direct access to specific implementations for testing
-    publishWithRequest: _publishWithRequest,
-    publishWithAxios: _publishWithAxios,
-    encryptWithRequest: _encryptWithRequest,
-    encryptWithAxios: _encryptWithAxios,
-    sslWithRequest: _sslWithRequest,
-    sslWithAxios: _sslWithAxios
-
+    encrypt: _encryptWithAxios,
+    publish: _publishWithAxios,
+    ssl: _sslWithAxios
   }
 }
 
