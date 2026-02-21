@@ -4,10 +4,9 @@ var fs            = require("fs")
 var url           = require("url")
 var EventEmitter  = require('events')
 var split         = require("split")
-var zlib          = require('zlib')
-var tar           = require('tarr')
-var fsReader      = require('surge-fstream-ignore')
-var ignore        = require("surge-ignore")
+var tar           = require('tar')
+var Ignore        = require('ignore')
+var surgeIgnore   = require("surge-ignore")
 var axios         = require("axios")
 
 
@@ -62,11 +61,61 @@ var stream = function(config){
     })
   }
 
+  // Helper: Recursively get all files in a directory
+  var getFiles = function(dir, ig, prefix) {
+    var results = []
+    var entries = fs.readdirSync(dir)
+    for (var i = 0; i < entries.length; i++) {
+      var entry = entries[i]
+      var fullPath = path.join(dir, entry)
+      var relativePath = prefix ? prefix + "/" + entry : entry
+      var stat = fs.statSync(fullPath)
+      if (stat.isDirectory()) {
+        // Check if directory itself should be ignored
+        if (!ig.ignores(relativePath + "/")) {
+          results = results.concat(getFiles(fullPath, ig, relativePath))
+        }
+      } else {
+        // Check if file should be ignored
+        if (!ig.ignores(relativePath)) {
+          results.push(relativePath)
+        }
+      }
+    }
+    return results
+  }
+
   // Helper: Create project read stream with tar + gzip
   var createProjectStream = function(projectPath){
-    var project = fsReader({ 'path': projectPath, ignoreFiles: [".surgeignore"] })
-    project.addIgnoreRules(ignore)
-    return project.pipe(tar.Pack()).pipe(zlib.Gzip())
+    // Create ignore filter with default surge rules
+    var ig = Ignore().add(surgeIgnore)
+
+    // Load .surgeignore if it exists
+    var surgeignorePath = path.join(projectPath, ".surgeignore")
+    if (fs.existsSync(surgeignorePath)) {
+      ig.add(fs.readFileSync(surgeignorePath, "utf8"))
+    }
+
+    // Get directory name and parent path for tar structure
+    // Old implementation used: "dirname/file.txt" not "./file.txt"
+    var absolutePath = path.resolve(projectPath)
+    var dirName = path.basename(absolutePath)
+    var parentDir = path.dirname(absolutePath)
+
+    // Get all files (not directories) to pack, respecting ignore rules
+    var files = getFiles(absolutePath, ig, "")
+
+    // Prefix each file with the directory name for tar structure
+    var tarFiles = files.map(function(f) { return path.join(dirName, f) })
+
+    // Create gzipped tar stream with only file entries (no directory entries)
+    // Use portable mode and epoch mtime to match old tarr output format
+    return tar.c({
+      gzip: true,
+      cwd: parentDir,
+      portable: true,
+      mtime: new Date(0)
+    }, tarFiles)
   }
 
   // Helper: Handle NDJSON response data and emit events
