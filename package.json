@@ -20,7 +20,11 @@
     "publish": "npm run publish:sdk && npm run publish:stream"
   },
   "devDependencies": {
-    "mocha": "12.0.0-beta-10",
+    "mocha": "11.7.6",
     "should": "13.2.3"
+  },
+  "overrides": {
+    "diff": "8.0.3",
+    "serialize-javascript": "7.0.5"
   }
 }
