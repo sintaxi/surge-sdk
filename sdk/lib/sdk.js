@@ -7,13 +7,10 @@ var sdk = function(config, surgeStream){
     var stream = surgeStream(config)
   }
 
-  config.defaults = Object.assign({
-    401: function(e, r, b){ console.log("Unauthorized"); },
-    417: function(e, r, b){ console.log("Upgrade Required"); },
-    426: function(e, r, b){ console.log("Upgrade Required"); },
-    429: function(e, r, b){ console.log("Too Many Requests"); },
-    404: new Function
-  }, config.defaults || {})
+  // status handlers are supplied by the caller via config.defaults —
+  // the sdk itself never writes to stdout. errors always reach the
+  // callback regardless of whether a handler is registered.
+  config.defaults = config.defaults || {}
 
   var handle = function(e, r, b){
     if (r && config.defaults.hasOwnProperty(r.status)){
