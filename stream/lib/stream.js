@@ -12,21 +12,6 @@ var axios         = require("axios")
 
 var stream = function(config){
 
-  config.defaults = Object.assign({
-    401: function(e, r, b){ console.log("Unauthorized"); },
-    417: function(e, r, b){ console.log("Upgrade Required"); },
-    426: function(e, r, b){ console.log("Upgrade Required"); },
-    429: function(e, r, b){ console.log("Too Many Requests"); },
-    404: new Function
-  }, config.defaults || {})
-
-  var handle = function(e, r, b){
-    if (e) return config.defaults[r.statusCode](e)
-    if (config.defaults.hasOwnProperty(r.statusCode)){
-      return config.defaults[r.statusCode](e, r, b)
-    }
-  }
-
   var creds = function(args){
     if(!args) return null
 
@@ -40,25 +25,6 @@ var stream = function(config){
       username: args.username || args.user,
       password: args.password || args.pass
     }
-  }
-
-  var failResponse = { errors:  [ "request did not complete" ], details: {"request": "did not complete" }}
-
-  var agent = axios.create({
-    baseURL: config.endpoint
-  })
-
-  var call = function(args, callback){
-    agent(args).then(function(response){
-      return callback(null, response.data)
-    }).catch(function(error){
-      if (error.response){
-        error.response.data.status = error.response.status
-        return callback(error.response.data)
-      }
-      if (error.request) return callback({ errors: [ "request did not complete" ], details: {"request": "did not complete" }})
-      return console.log('Error', error.message)
-    })
   }
 
   // Helper: Recursively get all files in a directory

@@ -16,9 +16,8 @@ var sdk = function(config, surgeStream){
   }, config.defaults || {})
 
   var handle = function(e, r, b){
-    if (e) return config.defaults[r.statusCode](e)
-    if (config.defaults.hasOwnProperty(r.statusCode)){
-      return config.defaults[r.statusCode](e, r, b)
+    if (r && config.defaults.hasOwnProperty(r.status)){
+      return config.defaults[r.status](e, r, b)
     }
   }
 
@@ -48,9 +47,11 @@ var sdk = function(config, surgeStream){
 
   var call = function(args, callback){
     agent(args).then(function(response){
+      handle(null, response, response.data)
       return callback(null, response.data)
     }).catch(function(error){
       if (error.response){
+        handle(null, error.response, error.response.data)
         error.response.data.status = error.response.status
         return callback(error.response.data)
       }
@@ -93,19 +94,13 @@ var sdk = function(config, surgeStream){
     },
     
     token: function(userCreds, callback){
-      agent({
+      return call({
         url: "/token",
         method: "POST",
         auth: creds(userCreds)
-      }).then(function(response){
-        return callback(null, { user: "token", pass: response.data.token })
-      }).catch(function(error){
-        if (error.response){
-          error.response.data.status = error.response.status
-          return callback(error.response.data)
-        }
-        if (error.request) return callback(failResponse)
-        return console.log('Error', error.message)
+      }, function(error, data){
+        if (error) return callback(error)
+        return callback(null, { user: "token", pass: data.token })
       })
     },
 
@@ -316,22 +311,6 @@ var sdk = function(config, surgeStream){
         data: { emails: emails },
         auth: creds(userCreds)
       }, callback)
-
-      // agent({
-      //   url: "/" + domains[0] + "/collaborators",
-      //   method: "DELETE",
-      //   data: { emails: emails },
-      //   auth: creds(userCreds)
-      // }).then(function(response){
-      //   return callback(null, response.data)
-      // }).catch(function(error){
-      //   if (error.response){
-      //     error.response.data.status = error.response.status
-      //     return callback(error.response.data)
-      //   }
-      //   if (error.request) return callback(failResponse)
-      //   return console.log('Error', error.message)
-      // })
     },
 
     dns: function(domain, userCreds, callback){
