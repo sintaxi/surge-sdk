@@ -51,6 +51,24 @@ describe("account", function(){
     })
   })
 
+  it("should send verification email /verification", function(done){
+    sdk.verification(creds, function(error, reply){
+      should.not.exist(error)
+      reply.should.have.property("sent", true)
+      reply.should.have.property("email", creds.user)
+      return done()
+    })
+  })
+
+  it("should rate-limit an immediate verification resend", function(done){
+    sdk.verification(creds, function(error, reply){
+      should.not.exist(error)
+      reply.should.have.property("sent", false)
+      reply.should.have.property("msg")
+      return done()
+    })
+  })
+
   it("should return error when attempting to create account already created", function(done){
     var c = {
       user: creds.user,

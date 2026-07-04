@@ -108,6 +108,18 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // sends an email-verification link to the authenticated account.
+    // replies: { verified: true } when already verified,
+    // { sent: true } when the email went out, or { sent: false, msg }
+    // when inside the resend window (one send per 5 minutes)
+    verification: function(userCreds, callback){
+      return call({
+        url: "/verification",
+        method: "POST",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     certs: function(projectDomain, userCreds, callback){
       return call({
         url: "/" + projectDomain + "/certs",
