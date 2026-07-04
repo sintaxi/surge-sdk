@@ -1,6 +1,6 @@
 {
   "name": "surge-stream",
-  "version": "0.10.5",
+  "version": "0.11.0",
   "description": "JavaScript stream library for publishing to surge.sh",
   "main": "lib/stream.js",
   "repository": {
