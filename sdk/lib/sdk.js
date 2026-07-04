@@ -120,6 +120,33 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // mints a 48h browser checkout link for the authed account.
+    // plan is optional (defaults server-side); replies { url }
+    upgradeLink: function(plan, userCreds, callback){
+      if (!callback){
+        callback = userCreds
+        userCreds = plan
+        plan = null
+      }
+      return call({
+        url: "/upgrade/link",
+        method: "POST",
+        data: plan ? { plan: plan } : {},
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // mints a 48h Stripe billing-portal link (card, invoices, cancel).
+    // replies { url }
+    billingLink: function(userCreds, callback){
+      return call({
+        url: "/billing/link",
+        method: "POST",
+        data: {},
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     certs: function(projectDomain, userCreds, callback){
       return call({
         url: "/" + projectDomain + "/certs",
