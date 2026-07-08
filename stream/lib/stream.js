@@ -106,6 +106,7 @@ var stream = function(config){
     if (statusCode == 401) emitter.emit("unauthorized", headers["reason"] || "Unauthorized")
     if (statusCode == 403) emitter.emit("forbidden", headers["reason"] || "Forbidden")
     if (statusCode == 422) emitter.emit("invalid", headers["reason"] || "Invalid")
+    if (statusCode == 429) emitter.emit("ratelimited", headers["reason"] || "Rate limited. Try again later.")
   }
 
   // ============================================================
