@@ -287,12 +287,40 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
-    plan: function(args, userCreds, callback){
+    plan: function(domain, args, userCreds, callback){
+      if (!callback){
+        callback  = userCreds
+        userCreds = args
+        args      = domain
+        domain    = null
+      }
+      var u = domain
+        ? "/" + domain + "/plan"
+        : "/plan"
       return call({
-        url: "/plan",
+        url: u,
         method: "PUT",
         auth: creds(userCreds),
         data: args
+      }, callback)
+    },
+
+    // current subscription state. without a domain this is the account
+    // (subscription: null when nothing is paid); with a domain it is the
+    // project paywall payload (type/plan/perks/stripe_pk/card)
+    subscription: function(domain, userCreds, callback){
+      if (!callback){
+        callback  = userCreds
+        userCreds = domain
+        domain    = null
+      }
+      var u = domain
+        ? "/" + domain + "/subscription"
+        : "/subscription"
+      return call({
+        url: u,
+        method: "GET",
+        auth: creds(userCreds)
       }, callback)
     },
 

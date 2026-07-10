@@ -69,6 +69,15 @@ describe("account", function(){
     })
   })
 
+  it("should report no account subscription on a fresh account /subscription", function(done){
+    sdk.subscription(creds, function(error, reply){
+      should.not.exist(error)
+      reply.should.have.property("subscription", null)
+      reply.should.have.property("stripe_pk")
+      return done()
+    })
+  })
+
   it("should mint a web upgrade link /upgrade/link", function(done){
     sdk.upgradeLink(creds, function(error, reply){
       should.not.exist(error)
