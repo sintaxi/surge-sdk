@@ -1,6 +1,6 @@
 {
   "name": "surge-sdk",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "JavaScript SDK for surge.sh",
   "main": "lib/sdk.js",
   "repository": {
