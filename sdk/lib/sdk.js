@@ -90,15 +90,56 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
     
-    token: function(userCreds, callback){
+    token: function(userCreds, args, callback){
+      if (!callback){
+        callback = args
+        args = null
+      }
       return call({
         url: "/token",
         method: "POST",
+        data: args || {},
         auth: creds(userCreds)
       }, function(error, data){
         if (error) return callback(error)
         return callback(null, { user: "token", pass: data.token })
       })
+    },
+
+    // full token response (token/id/msg/scope/created_at) —
+    // token() above keeps the { user, pass } login shape
+    tokenAdd: function(args, userCreds, callback){
+      if (!callback){
+        callback = userCreds
+        userCreds = args
+        args = null
+      }
+      return call({
+        url: "/token",
+        method: "POST",
+        data: args || {},
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    tokens: function(userCreds, callback){
+      return call({
+        url: "/tokens",
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    tokenRem: function(id, userCreds, callback){
+      if (!id) return callback({
+        messages: ["token id must be present"],
+        details: { token: "id must be present" }
+      })
+      return call({
+        url: "/tokens/" + id,
+        method: "DELETE",
+        auth: creds(userCreds)
+      }, callback)
     },
 
     reset: function(email, callback){
