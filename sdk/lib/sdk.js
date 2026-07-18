@@ -188,6 +188,20 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // one status word and, when it is the user's move, one action —
+    // { status, action, https, reason, records, evidence }
+    status: function(projectDomain, userCreds, callback){
+      if (!projectDomain) return callback({
+        messages: ["domain must be preset"],
+        details: { domain: "must be present" }
+      })
+      return call({
+        url: "/" + projectDomain + "/status",
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     certs: function(projectDomain, userCreds, callback){
       return call({
         url: "/" + projectDomain + "/certs",
