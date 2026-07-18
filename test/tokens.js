@@ -68,6 +68,14 @@ describe("tokens", function(){
     })
   })
 
+  it("should let a scoped token read its own identity", function(done){
+    sdk.account({ user: "token", pass: scopedToken }, function(error, account){
+      should.not.exist(error)
+      account.should.have.property("email", creds.user)
+      return done()
+    })
+  })
+
   it("should claim the domain by publishing with account creds", function(done){
     sdk.publish(__dirname + "/mocks/hello-world", domainName, creds, {
       "file-count": "99",
