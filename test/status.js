@@ -9,9 +9,30 @@ var creds       = { user: stamp + "@chloi.io", pass: "secret" }
 describe("status", function(){
 
   var domainName = `st${ Math.floor(Math.random() * 1000) }.lvh.me`
+  var platformDomain = stamp + "-status.surge.sh"
 
-  it("should report a platform subdomain as trivially live", function(done){
-    sdk.status(stamp + "-status.surge.sh", creds, function(error, reply){
+  it("should refuse status for an unpublished domain", function(done){
+    sdk.status(platformDomain, creds, function(error, reply){
+      should.exist(error)
+      error.should.have.property("status", 404)
+      error.messages.should.containEql("domain not published")
+      return done()
+    })
+  })
+
+  it("should publish a platform subdomain", function(done){
+    sdk.publish(__dirname + "/mocks/hello-world", platformDomain, creds, {
+      "file-count": "99",
+      "cmd": "test",
+      "project-size": "9999",
+      "timestamp": new Date().toJSON()
+    }).on("info", function(obj){
+      return done()
+    })
+  })
+
+  it("should report a published platform subdomain as trivially live", function(done){
+    sdk.status(platformDomain, creds, function(error, reply){
       should.not.exist(error)
       reply.status.should.equal("live")
       reply.action.should.equal("visit")
@@ -56,8 +77,19 @@ describe("status", function(){
     })
   })
 
-  it("should clean up", function(done){
+  it("should refuse status again after teardown", function(done){
     sdk.teardown(domainName, creds, function(error){
+      should.not.exist(error)
+      sdk.status(domainName, creds, function(error, reply){
+        should.exist(error)
+        error.should.have.property("status", 404)
+        return done()
+      })
+    })
+  })
+
+  it("should clean up", function(done){
+    sdk.teardown(platformDomain, creds, function(error){
       sdk.nuke(creds, function(error){
         should.not.exist(error)
         return done()
