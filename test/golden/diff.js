@@ -47,11 +47,30 @@ var names = function(list){
   return list.map(function(e){ return e.event }).join(" -> ")
 }
 
+// header lists are unordered sets. comparing them positionally turns one
+// removed header into a diff on every later index.
+var isStringList = function(v){
+  return Array.isArray(v) && v.every(function(s){ return typeof s === "string" })
+}
+
+var missing = function(from, other){
+  return from.filter(function(s){ return other.indexOf(s) === -1 })
+}
+
 var walk = function(a, b, trail){
   if (JSON.stringify(a) === JSON.stringify(b)) return
 
   if (isEventList(a) && isEventList(b) && a.length !== b.length){
     differences.push({ at: trail + " (sequence)", baseline: names(a), candidate: names(b) })
+    return
+  }
+
+  if (isStringList(a) && isStringList(b)){
+    var removed = missing(a, b)
+    var added   = missing(b, a)
+    if (removed.length || added.length){
+      differences.push({ at: trail, baseline: "-" + JSON.stringify(removed), candidate: "+" + JSON.stringify(added) })
+    }
     return
   }
 

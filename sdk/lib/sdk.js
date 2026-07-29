@@ -1,5 +1,5 @@
 
-var axios = require("axios")
+var request = require("./request")
 
 var sdk = function(config, surgeStream){
 
@@ -33,27 +33,73 @@ var sdk = function(config, surgeStream){
     }
   }
 
-  var failResponse = { 
-    errors:  [ "request did not complete" ], 
-    details: {"request": "did not complete" }
+  // messages is what every consumer reads; errors is kept for compatibility
+  var failResponse = {
+    errors:   [ "request did not complete" ],
+    messages: [ "request did not complete" ],
+    details:  {"request": "did not complete" }
   }
 
-  var agent = axios.create({
-    baseURL: config.endpoint
-  })
+  // parsed regardless of content-type and falling back to the raw text, which
+  // is what axios did. an empty body is "". several routes reply with
+  // pretty-printed json and a trailing newline — JSON.parse takes it.
+  var parse = function(text){
+    if (!text) return ""
+    try { return JSON.parse(text) } catch(e){ return text }
+  }
+
+  // a non-2xx body that is not json — an html 404 from an unknown route, or a
+  // body-less 5xx — used to reach the caller as a bare string. "" is falsy, so
+  // an empty error body read as success and the failure vanished. callers all
+  // expect messages/details/status, so describe the status instead.
+  var describe = function(status){
+    var msg = status >= 300 && status < 400
+      ? "endpoint redirected (" + status + ")"
+      : "request failed (" + status + ")"
+    return {
+      messages: [ msg ],
+      details:  { request: msg },
+      status:   status
+    }
+  }
 
   var call = function(args, callback){
-    agent(args).then(function(response){
-      handle(null, response, response.data)
-      return callback(null, response.data)
-    }).catch(function(error){
-      if (error.response){
-        handle(null, error.response, error.response.data)
-        error.response.data.status = error.response.status
-        return callback(error.response.data)
+    var body = (args.data === undefined || args.data === null)
+      ? undefined
+      : JSON.stringify(args.data)
+
+    request({
+      url:     request.join(config.endpoint, args.url),
+      method:  args.method,
+      headers: args.headers,
+      body:    body,
+      auth:    args.auth
+    }, function(error, res, text){
+      if (error) return callback(failResponse)
+
+      var data = parse(text)
+
+      // handle() keys off .status and must run before the callback: the cli
+      // registers 403/404 handlers that process.exit(1), so for those the
+      // callback is deliberately never reached
+      var response = {
+        status:     res.statusCode,
+        statusCode: res.statusCode,
+        headers:    res.headers,
+        data:       data
       }
-      if (error.request) return callback(failResponse)
-      return console.log('Error', error.message)
+
+      handle(null, response, data)
+
+      if (res.statusCode >= 200 && res.statusCode < 300) return callback(null, data)
+
+      // 3xx lands here too — redirects are not followed
+      if (data && typeof data === "object"){
+        data.status = res.statusCode
+        return callback(data)
+      }
+
+      return callback(describe(res.statusCode))
     })
   }
 

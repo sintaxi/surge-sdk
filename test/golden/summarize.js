@@ -77,6 +77,8 @@ exports.normalizePath = function(path){
 exports.summarizeHeaders = function(headers){
   return Object.keys(headers).sort().map(function(k){
     if (k === "authorization") return k + "=" + authKind(headers[k])
+    // product name only — the version would churn the baseline every release
+    if (k === "user-agent") return k + "=" + String(headers[k]).split("/")[0]
     if (VALUE_HEADERS.indexOf(k) !== -1) return k + "=" + stabilize(headers[k])
     return k
   })
