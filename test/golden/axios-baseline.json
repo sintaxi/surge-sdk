@@ -1,0 +1,7763 @@
+{
+  "recorded": 276,
+  "journal": [
+    {
+      "kind": "call",
+      "method": "stats",
+      "seq": 0,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{accounts,bytes,calls,deployemnts,deployments,files,formatted,projects}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/stats",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 1,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "access-control-allow-headers",
+        "access-control-allow-origin",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{accounts,bytes,calls,deployemnts,deployments,files,formatted,projects}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 2,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 401,
+        "messages": "array[1]",
+        "details": "{email}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <user>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 3,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 4,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 5,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "verification",
+      "seq": 6,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{email,sent,verified}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/verification",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 7,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{email,sent,verified}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "verification",
+      "seq": 8,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{email,msg,sent,verified}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/verification",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 9,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{email,msg,sent,verified}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "subscription",
+      "seq": 10,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{stripe_pk,subscription}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/subscription",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 11,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{stripe_pk,subscription}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "upgradeLink",
+      "seq": 12,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{url}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/upgrade/link",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 13,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{url}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "billingLink",
+      "seq": 14,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{url}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/billing/link",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 15,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{url}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 16,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 401,
+        "messages": "array[1]",
+        "details": "{password}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 17,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "token",
+      "seq": 18,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{pass,user}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 19,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 20,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 21,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 22,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 401,
+        "messages": "array[1]",
+        "details": "{token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 23,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 24,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 401,
+        "messages": "array[1]",
+        "details": "{token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 25,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 26
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 27,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 28,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,msg,status}",
+        "status": 409,
+        "messages": "array[1]",
+        "details": "{projects}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 29,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 409,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages,msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 30,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 31,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 32,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 33,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 34,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 35,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "token",
+      "seq": 36,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{pass,user}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 37,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 38,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 39,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 40,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 401,
+        "messages": "array[1]",
+        "details": "{token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 41,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "status",
+      "seq": 42,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 404,
+        "messages": "array[1]",
+        "details": "{domain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/status",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 43,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 404,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "stats",
+      "seq": 44,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{accounts,bytes,calls,deployemnts,deployments,files,formatted,projects}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/stats",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 45,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "access-control-allow-headers",
+        "access-control-allow-origin",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{accounts,bytes,calls,deployemnts,deployments,files,formatted,projects}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "status",
+      "seq": 46,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 404,
+        "messages": "array[1]",
+        "details": "{domain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/status",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 47,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 404,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 48,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 49,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 50,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 51,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "token",
+      "seq": 52,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{pass,user}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 53,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 54,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 55,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 56
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 57,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 58
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 59,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 60
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 61,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 62
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 63,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 64,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[2]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 65,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "date",
+        "keep-alive",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "json": "array[2]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 66,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 67,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 68,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 69,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 70,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 71,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "token",
+      "seq": 72,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{pass,user}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 73,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "reset",
+      "seq": 74,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "string",
+        "dataValue": "\"\""
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token/reset/<email>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 75,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "bytes": 0
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "invalid",
+          "payload": "string",
+          "value": "Invalid"
+        },
+        {
+          "event": "fail",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 76
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/invalid%20domain",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 77,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 422,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 78
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 79,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 80,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[1]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 81,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "date",
+        "keep-alive",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "json": "array[1]"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "unauthorized",
+          "payload": "string",
+          "value": "Unauthorized"
+        },
+        {
+          "event": "fail",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 82
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 83,
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      },
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "unauthorized",
+          "payload": "string",
+          "value": "Unauthorized"
+        },
+        {
+          "event": "fail",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 84
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 85,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "forbidden",
+          "payload": "string",
+          "value": "Forbidden"
+        },
+        {
+          "event": "fail",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 86
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 87,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 403,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "string"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 88,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 89,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "manifest",
+      "seq": 90,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{/index.html}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/manifest.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 91,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{/index.html}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "ssl",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{card,checkout_url,perks,plan,stripe_pk,type}"
+        },
+        {
+          "event": "collect",
+          "payload": "{card,checkout_url,perks,plan,stripe_pk}"
+        }
+      ],
+      "seq": 92
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>/ssl",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-type=application/x-pem-file",
+        "host",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 93,
+      "request": {
+        "contentType": "application/x-pem-file",
+        "bytes": 1489
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ]
+    },
+    {
+      "kind": "stream",
+      "method": "ssl",
+      "events": [
+        {
+          "event": "unauthorized",
+          "payload": "string",
+          "value": "Unauthorized"
+        },
+        {
+          "event": "fail",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 94
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>/ssl",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-type=application/x-pem-file",
+        "host",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 95,
+      "request": {
+        "contentType": "application/x-pem-file",
+        "bytes": 1489
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 96,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[1]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 97,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "date",
+        "keep-alive",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "json": "array[1]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 98,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 99,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 100,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 101,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "token",
+      "seq": 102,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{pass,user}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 103,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 104
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 105,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 106
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 107,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 108
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 109,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 110
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 111,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 112
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 113,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 114
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 115,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 116
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 117,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 118
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 119,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 120
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 121,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 122
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 123,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 124
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 125,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 126
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 127,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 128
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 129,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 130
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 131,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 132
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 133,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "ratelimited",
+          "payload": "string",
+          "value": "Rate limited. (domain). Verify email or try again in <time>."
+        },
+        {
+          "event": "fail",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 134
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 135,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 429,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive",
+        "reason=Rate limited. (domain). Verify email or try again in <time>.",
+        "retry-after"
+      ],
+      "response": {
+        "json": "{message}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 136,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 137,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 138,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 139,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "token",
+      "seq": 140,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{pass,user}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 141,
+      "request": {
+        "json": "{}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 142
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 143,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 144
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 145,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 146
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 147,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 148,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 149,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "rollback",
+      "seq": 150,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/<domain>/rollback",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 151,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 152,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 153,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "rollback",
+      "seq": 154,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/<domain>/rollback",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 155,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 156,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 157,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "rollback",
+      "seq": 158,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/<domain>/rollback",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 159,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 160,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 161,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 162,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 163,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "rollfore",
+      "seq": 164,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/<domain>/rollfore",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 165,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 166,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 167,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 168,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 169,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "rollfore",
+      "seq": 170,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/<domain>/rollfore",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 171,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 172,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 173,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "rollfore",
+      "seq": 174,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/<domain>/rollfore",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 175,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 176,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 177,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "cutover",
+      "seq": 178,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 404,
+        "messages": "array[1]",
+        "details": "{project}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>/rev/<rev>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 179,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 404,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "cutover",
+      "seq": 180,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 404,
+        "messages": "array[1]",
+        "details": "{revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>/rev/<rev>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 181,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 404,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "cutover",
+      "seq": 182,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{domain,former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>/rev/<rev>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 183,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{domain,former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 184,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 185,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 186,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 187,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 188
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "stage",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 189,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 190,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[4]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 191,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[4]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 192,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 193,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 194
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "stage",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 195,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 196,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[5]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 197,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[5]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 198,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 199,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "cutover",
+      "seq": 200,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{domain,former,instances,revision}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>/rev",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/x-www-form-urlencoded",
+        "host",
+        "user-agent"
+      ],
+      "seq": 201,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{domain,former,instances,revision}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 202,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[5]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 203,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[5]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 204,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 205,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 206
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "stage",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 207,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 208,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[6]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 209,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[6]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 210,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 211,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 212
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 213,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 214,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[7]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 215,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[7]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "metadata",
+      "seq": 216,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/metadata.json",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 217,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{buildTime,cliVersion,cmd,config,email,ip,message,output,platform,preview,privateFileCount,privateFileList,privateTotalSize,publicFileCount,publicTotalSize,rev,uploadDuration,uploadEndTime,uploadStartTime}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "discard",
+      "seq": 218,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{domain,instances,rev,revision,uncached}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>/rev/<rev>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 219,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{domain,instances,rev,revision,uncached}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 220,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[6]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 221,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[6]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 222,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 223,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 224,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 225,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "status",
+      "seq": 226,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 404,
+        "messages": "array[1]",
+        "details": "{domain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/status",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 227,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 404,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 228
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 229,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "status",
+      "seq": 230,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{action,evidence,https,reason,records,status,via}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/status",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 231,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{action,evidence,https,reason,records,status,via}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 232
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 233,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "status",
+      "seq": 234,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{action,evidence,https,reason,records,status,via}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/status",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 235,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{action,evidence,https,reason,records,status,via}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "tokenAdd",
+      "seq": 236,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 237,
+      "request": {
+        "json": "{scope}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "status",
+      "seq": 238,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{action,evidence,https,reason,records,status,via}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/status",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 239,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{action,evidence,https,reason,records,status,via}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 240,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 241,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "status",
+      "seq": 242,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 404,
+        "messages": "array[1]",
+        "details": "{domain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/<domain>/status",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 243,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 404,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 244,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 245,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 246,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 247,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "tokenAdd",
+      "seq": 248,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 249,
+      "request": {
+        "json": "{msg}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "token",
+      "seq": 250,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{pass,user}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 251,
+      "request": {
+        "json": "{msg}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "tokenAdd",
+      "seq": 252,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 253,
+      "request": {
+        "json": "{msg,scope}"
+      },
+      "responseStatus": 201,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{created_at,email,id,msg,scope,token}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "tokens",
+      "seq": 254,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "array[3]"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/tokens",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 255,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "array[3]"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "tokens",
+      "seq": 256,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 403,
+        "messages": "array[1]",
+        "details": "{token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/tokens",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 257,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 403,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "account",
+      "seq": 258,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 259,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{card,created_at,email,email_verified_at,id,payment_id,plan,role,updated_at,uuid}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 260
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 261,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "call",
+      "method": "tokenAdd",
+      "seq": 262,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 403,
+        "messages": "array[1]",
+        "details": "{scope}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "POST",
+      "path": "/token",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json",
+        "host",
+        "user-agent"
+      ],
+      "seq": 263,
+      "request": {
+        "json": "{scope}"
+      },
+      "responseStatus": 403,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{file,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{file,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{end,id,total,type,written}"
+        },
+        {
+          "event": "progress",
+          "payload": "{end,id,total,written}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "subscription",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{data,type}"
+        },
+        {
+          "event": "ip",
+          "payload": "{data}"
+        },
+        {
+          "event": "data",
+          "payload": "{certs,config,cta,dns,instances,metadata,type,urls}"
+        },
+        {
+          "event": "info",
+          "payload": "{certs,config,cta,dns,instances,metadata,urls}"
+        },
+        {
+          "event": "success",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 264
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 265,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "cache-control",
+        "connection=keep-alive",
+        "content-type=text/event-stream",
+        "date",
+        "transfer-encoding=chunked"
+      ],
+      "response": {
+        "contentType": "text/event-stream",
+        "ndjson": [
+          "progress",
+          "progress",
+          "progress",
+          "progress",
+          "subscription",
+          "ip",
+          "info"
+        ]
+      }
+    },
+    {
+      "kind": "stream",
+      "method": "publish",
+      "events": [
+        {
+          "event": "forbidden",
+          "payload": "string",
+          "value": "Forbidden"
+        },
+        {
+          "event": "fail",
+          "payload": "undefined"
+        }
+      ],
+      "seq": 266
+    },
+    {
+      "kind": "http",
+      "method": "PUT",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/x-ndjson",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "cmd",
+        "connection=keep-alive",
+        "content-type=application/gzip",
+        "file-count",
+        "host",
+        "project-size",
+        "timestamp",
+        "transfer-encoding=chunked",
+        "user-agent",
+        "version=999"
+      ],
+      "seq": 267,
+      "request": {
+        "contentType": "application/gzip",
+        "bytes": 123
+      },
+      "responseStatus": 403,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "tokenRem",
+      "seq": 268,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "string",
+        "dataValue": "\"\""
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/tokens/<id>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 269,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 204,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "date",
+        "keep-alive"
+      ],
+      "response": {
+        "bytes": 0
+      }
+    },
+    {
+      "kind": "call",
+      "method": "list",
+      "seq": 270,
+      "callback": {
+        "outcome": "error",
+        "errorType": "object",
+        "errorShape": "{details,messages,status}",
+        "status": 401,
+        "messages": "array[1]",
+        "details": "{token}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "GET",
+      "path": "/list",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic token:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 271,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 401,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{details,messages}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "teardown",
+      "seq": 272,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/<domain>",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 273,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=text/html; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{instances,msg,nsDomain}"
+      }
+    },
+    {
+      "kind": "call",
+      "method": "nuke",
+      "seq": 274,
+      "callback": {
+        "outcome": "success",
+        "dataShape": "{msg}"
+      }
+    },
+    {
+      "kind": "http",
+      "method": "DELETE",
+      "path": "/account",
+      "headers": [
+        "accept=application/json, text/plain, */*",
+        "accept-encoding=gzip, compress, deflate, br",
+        "authorization=Basic <email>:set",
+        "connection=keep-alive",
+        "host",
+        "user-agent"
+      ],
+      "seq": 275,
+      "request": {
+        "bytes": 0
+      },
+      "responseStatus": 200,
+      "responseHeaders": [
+        "connection=keep-alive",
+        "content-length",
+        "content-type=application/json; charset=utf-8",
+        "date",
+        "etag",
+        "keep-alive"
+      ],
+      "response": {
+        "json": "{msg}"
+      }
+    }
+  ]
+}
