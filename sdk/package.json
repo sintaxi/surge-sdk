@@ -9,6 +9,9 @@
   },
   "author": "Brock Whitten <brock@chloi.io>",
   "license": "ISC",
+  "engines": {
+    "node": ">=18"
+  },
   "bugs": {
     "url": "https://github.com/sintaxi/surge-sdk/issues"
   },
