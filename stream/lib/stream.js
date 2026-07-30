@@ -7,7 +7,6 @@ var split         = require("split")
 var tar           = require('tar')
 var Ignore        = require('ignore')
 var surgeIgnore   = require("surge-ignore")
-var Readable      = require("stream").Readable
 var request       = require("./request")
 
 
@@ -130,10 +129,11 @@ var stream = function(config){
       body:    opts.body,
       auth:    creds(opts.userCreds),
       stream:  true
-    }, function(error, res, _text, body){
-      // fetch settles on a later tick, so listeners attached right after this
-      // function returns are always in place before anything is emitted
-      if (error) return emitter.emit("fail")
+    }, function(error, res){
+      // node can call back synchronously on a setup failure, and the caller
+      // attaches its listeners only after this function returns — so every
+      // emission has to wait a tick
+      if (error) return process.nextTick(function(){ emitter.emit("fail") })
 
       // carries the real status and headers, which is what surge ssl reads to
       // report a 401/403 instead of exiting silently
@@ -144,23 +144,19 @@ var stream = function(config){
         // an unexplained failure, so it must never arrive before the reason
         handleErrorStatus(emitter, res.statusCode, res.headers)
         emitter.emit("fail")
-        if (body) body.cancel()
+        res.resume()
         return
       }
 
-      if (!body) return emitter.emit(success.value === true ? "success" : "fail")
-
-      var incoming = Readable.fromWeb(body)
-
-      incoming.pipe(split()).on("data", function(data){
+      res.pipe(split()).on("data", function(data){
         handleResponseData(emitter, data, success)
       })
 
-      incoming.on("error", function(error){
+      res.on("error", function(error){
         emitter.emit("error", error)
       })
 
-      incoming.on("end", function(){
+      res.on("end", function(){
         success.value === true
           ? emitter.emit("success")
           : emitter.emit("fail")

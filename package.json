@@ -21,7 +21,7 @@
     "publish:sdk": "cd sdk && npm publish",
     "publish:stream": "cd stream && npm publish",
     "publish": "npm run publish:sdk && npm run publish:stream",
-    "test:floor": "node test/floor-check.js"
+    "test:floor": "node bin/floor-check"
   },
   "devDependencies": {
     "mocha": "12.0.0-rc.1",

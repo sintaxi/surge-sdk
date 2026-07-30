@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // exercises the real transport paths without mocha, so it can run on node
 // 18.13 (the declared floor) where mocha 12's import attributes will not parse.
 // the interesting one is publish: streamed tar up, ndjson down, which is the
@@ -11,7 +12,7 @@ var sdk = sdkFactory({ endpoint: "http://localhost:5001", version: "999" }, stre
 var stamp = "t" + Date.now() + "n" + process.version.replace(/[^0-9]/g, "")
 var creds = { user: stamp + "@chloi.io", pass: "secret" }
 var domain = "floor-" + stamp + ".lvh.me"
-var project = __dirname + "/mocks/hello-world"
+var project = __dirname + "/../test/mocks/hello-world"
 
 var pass = 0
 var fail = 0

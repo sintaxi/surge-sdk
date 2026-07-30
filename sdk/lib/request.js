@@ -1,7 +1,13 @@
 
-// one transport for both runtimes. fetch is a global in browsers and in node
-// 18.13+, so this file is byte-identical in the sdk and stream packages and
-// needs no bundler shim, no "browser" field, and no dependencies.
+// fetch, because this package has to run in a browser as well as in node — it
+// is a global in both (node 18.13+), so there is no bundler shim, no "browser"
+// field and no dependency.
+//
+// surge-stream deliberately does NOT share this file: it streams its uploads,
+// and node 24's fetch rejects a streamed request with "expected non-null body
+// source" as soon as the server answers early, which is exactly how slushi
+// reports 401/403/429 on a publish. it keeps a raw http/https client instead.
+// nothing here streams a request body, so none of that applies.
 //
 //   request(opts, callback) -> callback(error, res, text, stream)
 //   res: { statusCode, headers }
