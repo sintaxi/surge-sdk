@@ -13,12 +13,20 @@
 
 var pkg = require("../package.json")
 
+// fetch refuses a header value holding anything above U+00FF or a control
+// character; node's http quietly dropped the former. publishing must not fail
+// because someone put an emoji in their -m message, so strip rather than throw
+// — the message is cosmetic, the publish is not. \t is legal in a value.
+var headerSafe = function(value){
+  return String(value).replace(/[^\t\x20-\x7e\xa0-\xff]/g, "")
+}
+
 var clean = function(headers){
   var out = {}
   Object.keys(headers || {}).forEach(function(key){
     var value = headers[key]
     if (value === undefined || value === null) return
-    out[key] = value
+    out[key] = headerSafe(value)
   })
   return out
 }

@@ -44,6 +44,24 @@ var tap = function(stream, onDone){
   stream.on("end", function(){ onDone(Buffer.concat(chunks), bytes) })
 }
 
+// hop-by-hop headers belong to a single connection and must not be relayed
+// (RFC 7230 6.1). copying the upstream transfer-encoding onto our own response
+// re-frames a body node is already framing — the old http client tolerated it,
+// undici does not, and a streamed publish stalls until the test times out.
+var HOP_BY_HOP = [
+  "connection", "keep-alive", "proxy-authenticate", "proxy-authorization",
+  "te", "trailer", "transfer-encoding", "upgrade"
+]
+
+var relayable = function(headers){
+  var out = {}
+  Object.keys(headers).forEach(function(key){
+    if (HOP_BY_HOP.indexOf(key.toLowerCase()) !== -1) return
+    out[key] = headers[key]
+  })
+  return out
+}
+
 var proxy = http.createServer(function(creq, cres){
   var entry = record({
     kind: "http",
@@ -62,6 +80,8 @@ var proxy = http.createServer(function(creq, cres){
     port: UPSTREAM,
     path: creq.url,
     method: creq.method,
+    // forwarded as-is: stripping connection here changes how slushi frames its
+    // own response, which shows up as journal noise that is purely the proxy's
     headers: creq.headers,
     // fresh socket per request so a pooled connection can never carry state
     // between two recorded calls
@@ -72,7 +92,7 @@ var proxy = http.createServer(function(creq, cres){
     tap(pres, function(buf){
       entry.response = sum.summarizeBody(buf, pres.headers["content-type"])
     })
-    cres.writeHead(pres.statusCode, pres.headers)
+    cres.writeHead(pres.statusCode, relayable(pres.headers))
     pres.pipe(cres)
   })
 

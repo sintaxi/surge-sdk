@@ -7,7 +7,8 @@ var split         = require("split")
 var tar           = require('tar')
 var Ignore        = require('ignore')
 var surgeIgnore   = require("surge-ignore")
-var axios         = require("axios")
+var Readable      = require("stream").Readable
+var request       = require("./request")
 
 
 var stream = function(config){
@@ -109,171 +110,61 @@ var stream = function(config){
     if (statusCode == 429) emitter.emit("ratelimited", headers["reason"] || "Rate limited. Try again later.")
   }
 
-  // ============================================================
-  // AXIOS-BASED IMPLEMENTATIONS
-  // ============================================================
-
-  var _publishWithAxios = function(projectPath, projectDomain, userCreds, headers, argv){
+  // one handshake for all three verbs. they differ only in the path they PUT
+  // to, what they send as a body, and the content-type; everything after the
+  // response is identical, so it lives here once.
+  var handshake = function(opts){
+    var emitter = new EventEmitter()
     var success = { value: false }
 
-    headers = Object.assign({ version: config.version }, headers || {})
-    if (argv) headers.argv = JSON.stringify(argv)
+    var headers = Object.assign({ version: config.version }, opts.headers || {})
+    if (opts.argv) headers.argv = JSON.stringify(opts.argv)
 
-    var emitter = new EventEmitter()
-
-    var projectStream = createProjectStream(projectPath)
-
-    // Set headers for streaming upload
-    headers["content-type"] = "application/gzip"
     headers["accept"] = "application/x-ndjson"
-    headers["transfer-encoding"] = "chunked"
+    if (opts.contentType) headers["content-type"] = opts.contentType
 
-    var credentials = creds(userCreds)
-
-    axios({
-      method: "PUT",
-      url: url.resolve(config.endpoint, projectDomain),
-      responseType: "stream",
+    request({
+      url:     url.resolve(config.endpoint, opts.path),
+      method:  "PUT",
       headers: headers,
-      data: projectStream,
-      auth: credentials,
-      maxBodyLength: Infinity,
-      maxContentLength: Infinity
-    }).then(function(response){
-      var responseStream = response.data
+      body:    opts.body,
+      auth:    creds(opts.userCreds),
+      stream:  true
+    }, function(error, res, _text, body){
+      // fetch settles on a later tick, so listeners attached right after this
+      // function returns are always in place before anything is emitted
+      if (error) return emitter.emit("fail")
 
-      responseStream.pipe(split()).on("data", function(data){
+      // carries the real status and headers, which is what surge ssl reads to
+      // report a 401/403 instead of exiting silently
+      emitter.emit("response", res)
+
+      if (res.statusCode < 200 || res.statusCode >= 300){
+        // status-specific event first: a bare fail is what the cli treats as
+        // an unexplained failure, so it must never arrive before the reason
+        handleErrorStatus(emitter, res.statusCode, res.headers)
+        emitter.emit("fail")
+        if (body) body.cancel()
+        return
+      }
+
+      if (!body) return emitter.emit(success.value === true ? "success" : "fail")
+
+      var incoming = Readable.fromWeb(body)
+
+      incoming.pipe(split()).on("data", function(data){
         handleResponseData(emitter, data, success)
       })
 
-      responseStream.on('error', function(error){
+      incoming.on("error", function(error){
         emitter.emit("error", error)
       })
 
-      responseStream.on('end', function(){
+      incoming.on("end", function(){
         success.value === true
           ? emitter.emit("success")
           : emitter.emit("fail")
       })
-    }).catch(function(error){
-      // Handle axios errors
-      if (error.response) {
-        // Server responded with error status - emit status-specific event only
-        // (matches request-based implementation behavior)
-        handleErrorStatus(emitter, error.response.status, error.response.headers)
-        emitter.emit("fail")
-      } else if (error.request) {
-        // Request made but no response received - this is a real error
-        emitter.emit("fail")
-      } else {
-        // Error setting up request - this is a real error
-        emitter.emit("fail")
-      }
-    })
-
-    return emitter
-  }
-
-  var _encryptWithAxios = function(projectDomain, userCreds, headers, argv){
-    var success = { value: false }
-
-    headers = Object.assign({ version: config.version }, headers || {})
-    if (argv) headers.argv = JSON.stringify(argv)
-
-    var emitter = new EventEmitter()
-
-    headers["accept"] = "application/x-ndjson"
-
-    var credentials = creds(userCreds)
-
-    axios({
-      method: "PUT",
-      url: url.resolve(config.endpoint, projectDomain + "/encrypt"),
-      responseType: "stream",
-      headers: headers,
-      auth: credentials
-    }).then(function(response){
-      var responseStream = response.data
-
-      responseStream.pipe(split()).on("data", function(data){
-        handleResponseData(emitter, data, success)
-      })
-
-      responseStream.on('error', function(error){
-        emitter.emit("error", error)
-      })
-
-      responseStream.on('end', function(){
-        success.value === true
-          ? emitter.emit("success")
-          : emitter.emit("fail")
-      })
-    }).catch(function(error){
-      if (error.response) {
-        // Server responded with error status - emit status-specific event only
-        handleErrorStatus(emitter, error.response.status, error.response.headers)
-        emitter.emit("fail")
-      } else if (error.request) {
-        // Request made but no response received
-        emitter.emit("fail")
-      } else {
-        // Error setting up request
-        emitter.emit("fail")
-      }
-    })
-
-    return emitter
-  }
-
-  var _sslWithAxios = function(pemPath, projectDomain, userCreds, headers, argv){
-    var success = { value: false }
-
-    headers = Object.assign({ version: config.version }, headers || {})
-    if (argv) headers.argv = JSON.stringify(argv)
-
-    var emitter = new EventEmitter()
-
-    var pemStream = fs.createReadStream(pemPath)
-
-    headers["content-type"] = "application/x-pem-file"
-    headers["accept"] = "application/x-ndjson"
-
-    var credentials = creds(userCreds)
-
-    axios({
-      method: "PUT",
-      url: url.resolve(config.endpoint, projectDomain + "/ssl"),
-      responseType: "stream",
-      headers: headers,
-      data: pemStream,
-      auth: credentials,
-      maxBodyLength: Infinity,
-      maxContentLength: Infinity
-    }).then(function(response){
-      var responseStream = response.data
-
-      responseStream.pipe(split()).on("data", function(data){
-        handleResponseData(emitter, data, success)
-      })
-
-      responseStream.on('error', function(error){
-        emitter.emit("error", error)
-      })
-
-      responseStream.on('end', function(){
-        success.value === true
-          ? emitter.emit("success")
-          : emitter.emit("fail")
-      })
-    }).catch(function(error){
-      if (error.response) {
-        handleErrorStatus(emitter, error.response.status, error.response.headers)
-        emitter.emit("fail")
-      } else if (error.request) {
-        emitter.emit("fail")
-      } else {
-        emitter.emit("fail")
-      }
     })
 
     return emitter
@@ -283,10 +174,41 @@ var stream = function(config){
   // PUBLIC API
   // ============================================================
 
+  var publish = function(projectPath, projectDomain, userCreds, headers, argv){
+    return handshake({
+      path:        projectDomain,
+      body:        createProjectStream(projectPath),
+      contentType: "application/gzip",
+      userCreds:   userCreds,
+      headers:     headers,
+      argv:        argv
+    })
+  }
+
+  var encrypt = function(projectDomain, userCreds, headers, argv){
+    return handshake({
+      path:      projectDomain + "/encrypt",
+      userCreds: userCreds,
+      headers:   headers,
+      argv:      argv
+    })
+  }
+
+  var ssl = function(pemPath, projectDomain, userCreds, headers, argv){
+    return handshake({
+      path:        projectDomain + "/ssl",
+      body:        fs.createReadStream(pemPath),
+      contentType: "application/x-pem-file",
+      userCreds:   userCreds,
+      headers:     headers,
+      argv:        argv
+    })
+  }
+
   return {
-    encrypt: _encryptWithAxios,
-    publish: _publishWithAxios,
-    ssl: _sslWithAxios
+    encrypt: encrypt,
+    publish: publish,
+    ssl: ssl
   }
 }
 
