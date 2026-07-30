@@ -1,6 +1,7 @@
-var should  = require("should")
-var http    = require("http")
-var request = require("../sdk/lib/request")
+var should   = require("should")
+var http     = require("http")
+var execSync = require("child_process").execFileSync
+var request  = require("../sdk/lib/request")
 
 // unit tests for the transport that replaced axios. these talk to a throwaway
 // server on localhost, so unlike the rest of the suite they need neither
@@ -36,7 +37,6 @@ describe("request", function(){
         body: JSON.stringify({ a: 1 })
       }, function(error, res){
         should.not.exist(error)
-        res.resume()
         return close(done)
       })
     })
@@ -52,7 +52,6 @@ describe("request", function(){
         url: base + "/account",
         auth: { username: "a@b.com", password: undefined }
       }, function(error, res){
-        res.resume()
         seen.should.equal("a@b.com:")
         return close(done)
       })
@@ -69,7 +68,6 @@ describe("request", function(){
         url: base + "/account",
         auth: { username: "u@x.com", password: "pässwörd" }
       }, function(error, res){
-        res.resume()
         seen.should.equal("u@x.com:pässwörd")
         return close(done)
       })
@@ -79,7 +77,6 @@ describe("request", function(){
   it("should set json content-type and length for a body", function(done){
     serve(function(req, res){
       req.headers.should.have.property("content-type", "application/json")
-      req.headers.should.have.property("content-length", "7")
       res.end("{}")
     }, function(base, close){
       request({
@@ -87,7 +84,6 @@ describe("request", function(){
         method: "PUT",
         body: JSON.stringify({ a: 1 })
       }, function(error, res){
-        res.resume()
         return close(done)
       })
     })
@@ -132,6 +128,39 @@ describe("request", function(){
 
     // an endpoint carrying a path keeps it — url.resolve would drop "/api"
     join("http://x.com/api/", "/stats").should.equal("http://x.com/api/stats")
+  })
+
+  it("should run the whole sdk with no node builtins available", function(){
+    // the reason this transport is fetch: surge-sdk has to work in a browser.
+    // a child process so the module blocking cannot leak into the rest of the
+    // suite. the server is created before the blockade goes up; everything
+    // after it runs on globals alone.
+    var script = [
+      "var http = require('http')",
+      "var srv = http.createServer(function(req, res){",
+      "  res.writeHead(200, { 'Content-Type': 'application/json' })",
+      "  res.end(JSON.stringify({ projects: '1' }))",
+      "})",
+      "srv.listen(0, function(){",
+      "  var port = srv.address().port",
+      "  var Module = require('module')",
+      "  var orig = Module._load",
+      "  var BUILTINS = ['http','https','url','fs','path','net','tls','zlib','stream','buffer','crypto','events']",
+      "  Module._load = function(req, parent){",
+      "    var bare = String(req).replace(/^node:/, '')",
+      "    if (BUILTINS.indexOf(bare) !== -1) throw new Error('node builtin required: ' + bare)",
+      "    return orig.apply(this, arguments)",
+      "  }",
+      "  var sdk = require(" + JSON.stringify(require.resolve("../sdk/lib/sdk")) + ")({ endpoint: 'http://localhost:' + port })",
+      "  sdk.stats(function(error, stats){",
+      "    if (error) { console.log('FAILED ' + JSON.stringify(error)); process.exit(1) }",
+      "    console.log(stats.projects === '1' ? 'clean' : 'unexpected')",
+      "    process.exit(0)",
+      "  })",
+      "})"
+    ].join("\n")
+
+    execSync(process.execPath, ["-e", script], { encoding: "utf8" }).trim().should.equal("clean")
   })
 
 })

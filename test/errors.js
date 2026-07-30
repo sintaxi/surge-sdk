@@ -71,15 +71,22 @@ describe("errors", function(){
     })
   })
 
-  it("should surface a redirect rather than following it", function(done){
+  it("should follow a redirect, as axios did", function(done){
+    // fetch follows by default and there is no clean way to do otherwise in
+    // both runtimes: redirect:"manual" yields an opaque status-0 response in a
+    // browser. axios followed redirects too, so this is the long-standing
+    // behaviour rather than a new one. no api route redirects in any case.
     serve(function(req, res){
-      res.writeHead(302, { "Location": "http://example.com/elsewhere" })
-      res.end()
+      if (req.url === "/stats"){
+        res.writeHead(302, { "Location": "/moved" })
+        return res.end()
+      }
+      res.writeHead(200, { "Content-Type": "application/json" })
+      res.end(JSON.stringify({ projects: "7" }))
     }, function(api, close){
-      api.stats(function(error){
-        should.exist(error)
-        error.should.have.property("status", 302)
-        error.messages.should.be.an.Array()
+      api.stats(function(error, stats){
+        should.not.exist(error)
+        stats.should.have.property("projects", "7")
         return close(done)
       })
     })

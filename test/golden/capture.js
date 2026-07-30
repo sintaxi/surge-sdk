@@ -132,6 +132,13 @@ var wrapMethod = function(api, name){
 patch("../../sdk", function(sdk){
   return function(config, surgeStream){
     var api = sdk(config, surgeStream)
+
+    // only record clients aimed at the recording proxy. the transport unit
+    // tests point sdk instances at throwaway localhost servers, and letting
+    // those into the journal would make the baseline depend on which unit
+    // tests happen to exist rather than on the api contract.
+    if (!config || String(config.endpoint).indexOf(":" + PORT) === -1) return api
+
     var wrapped = {}
     Object.keys(api).forEach(function(name){
       wrapped[name] = typeof api[name] === "function" ? wrapMethod(api, name) : api[name]
