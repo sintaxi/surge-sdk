@@ -3,6 +3,9 @@
   "version": "0.17.1",
   "description": "JavaScript SDK for surge.sh",
   "main": "lib/sdk.js",
+  "browser": {
+    "./lib/request.js": "./lib/request.browser.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sintaxi/surge-sdk.git"
