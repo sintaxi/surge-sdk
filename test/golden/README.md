@@ -4,14 +4,20 @@ A behavioral baseline for the transport layer. Records what the sdk and stream
 actually do — on the wire, in callbacks, and in emitter events — so a rewrite
 can be proved equivalent instead of assumed equivalent.
 
-Built for the axios → raw `http`/`https` swap. The plan it serves is
-`slushi/plans/drop-axios.md`.
+Built to prove the axios removal (`slushi/plans/drop-axios.md`) changed nothing
+it was not meant to. `baseline.json` now records the **current** implementation
+— surge-sdk on fetch, surge-stream on raw `http`/`https` — so a clean
+`golden:verify` means today's behaviour, not the pre-migration behaviour.
+
+Re-record it whenever a change to the transport is intended, and only then:
+a baseline that no longer matches reality reports differences on every run,
+and a check that always fails is a check nobody reads.
 
 ## Use
 
 Needs a local slushi on `:5001` (`cd ../slushi && npm start`).
 
-    npm run golden          # record -> test/golden/axios-baseline.json
+    npm run golden          # record -> test/golden/baseline.json
     npm run golden:verify   # record -> candidate.json, then diff against the baseline
 
 `golden:verify` exits non-zero on any divergence, so it can gate a release.

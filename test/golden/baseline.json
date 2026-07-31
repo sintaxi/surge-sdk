@@ -15,11 +15,13 @@
       "method": "GET",
       "path": "/stats",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 1,
       "request": {
@@ -58,12 +60,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <user>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 3,
       "request": {
@@ -96,12 +100,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 5,
       "request": {
@@ -134,14 +140,15 @@
       "method": "POST",
       "path": "/verification",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 7,
       "request": {
@@ -174,14 +181,15 @@
       "method": "POST",
       "path": "/verification",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 9,
       "request": {
@@ -214,12 +222,14 @@
       "method": "GET",
       "path": "/subscription",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 11,
       "request": {
@@ -250,14 +260,16 @@
       "method": "POST",
       "path": "/upgrade/link",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 13,
       "request": {
@@ -290,14 +302,16 @@
       "method": "POST",
       "path": "/billing/link",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 15,
       "request": {
@@ -334,12 +348,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 17,
       "request": {
@@ -372,14 +388,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 19,
       "request": {
@@ -412,12 +430,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 21,
       "request": {
@@ -454,12 +474,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 23,
       "request": {
@@ -496,12 +518,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 25,
       "request": {
@@ -524,6 +548,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -593,7 +621,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -603,7 +630,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 27,
@@ -650,12 +677,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 29,
       "request": {
@@ -688,12 +717,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 31,
       "request": {
@@ -726,12 +757,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 33,
       "request": {
@@ -764,12 +797,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 35,
       "request": {
@@ -802,14 +837,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 37,
       "request": {
@@ -842,12 +879,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 39,
       "request": {
@@ -884,12 +923,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 41,
       "request": {
@@ -926,12 +967,14 @@
       "method": "GET",
       "path": "/<domain>/status",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 43,
       "request": {
@@ -964,11 +1007,13 @@
       "method": "GET",
       "path": "/stats",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 45,
       "request": {
@@ -1007,12 +1052,14 @@
       "method": "GET",
       "path": "/<domain>/status",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 47,
       "request": {
@@ -1045,12 +1092,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 49,
       "request": {
@@ -1083,12 +1132,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 51,
       "request": {
@@ -1121,14 +1172,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 53,
       "request": {
@@ -1161,12 +1214,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 55,
       "request": {
@@ -1189,6 +1244,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -1258,7 +1317,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -1268,7 +1326,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 57,
@@ -1301,6 +1359,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -1370,7 +1432,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -1380,7 +1441,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 59,
@@ -1413,6 +1474,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -1482,7 +1547,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -1492,7 +1556,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 61,
@@ -1525,6 +1589,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -1594,7 +1662,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -1604,7 +1671,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 63,
@@ -1647,12 +1714,14 @@
       "method": "GET",
       "path": "/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 65,
       "request": {
@@ -1683,12 +1752,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 67,
       "request": {
@@ -1721,12 +1792,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 69,
       "request": {
@@ -1759,12 +1832,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 71,
       "request": {
@@ -1797,14 +1872,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 73,
       "request": {
@@ -1838,13 +1915,14 @@
       "method": "POST",
       "path": "/token/reset/<email>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 75,
       "request": {
@@ -1866,6 +1944,10 @@
       "method": "publish",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "invalid",
           "payload": "string",
           "value": "Invalid"
@@ -1883,7 +1965,6 @@
       "path": "/invalid%20domain",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -1893,7 +1974,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 77,
@@ -1918,6 +1999,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -1987,7 +2072,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -1997,7 +2081,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 79,
@@ -2040,12 +2124,14 @@
       "method": "GET",
       "path": "/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 81,
       "request": {
@@ -2067,6 +2153,10 @@
       "method": "publish",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "unauthorized",
           "payload": "string",
           "value": "Unauthorized"
@@ -2084,7 +2174,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -2094,7 +2183,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 83,
@@ -2120,6 +2209,10 @@
       "method": "publish",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "unauthorized",
           "payload": "string",
           "value": "Unauthorized"
@@ -2137,7 +2230,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic <email>:set",
         "cmd",
         "connection=keep-alive",
@@ -2147,7 +2239,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 85,
@@ -2173,6 +2265,10 @@
       "method": "publish",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "forbidden",
           "payload": "string",
           "value": "Forbidden"
@@ -2190,7 +2286,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic <email>:set",
         "cmd",
         "connection=keep-alive",
@@ -2200,7 +2295,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 87,
@@ -2235,12 +2330,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 89,
       "request": {
@@ -2271,12 +2368,14 @@
       "method": "GET",
       "path": "/<domain>/manifest.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 91,
       "request": {
@@ -2298,6 +2397,10 @@
       "method": "ssl",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "data",
           "payload": "{card,checkout_url,perks,plan,stripe_pk,type}"
         },
@@ -2314,13 +2417,12 @@
       "path": "/<domain>/ssl",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-type=application/x-pem-file",
         "host",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 93,
@@ -2342,6 +2444,10 @@
       "method": "ssl",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "unauthorized",
           "payload": "string",
           "value": "Unauthorized"
@@ -2359,13 +2465,12 @@
       "path": "/<domain>/ssl",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-type=application/x-pem-file",
         "host",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 95,
@@ -2400,12 +2505,14 @@
       "method": "GET",
       "path": "/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 97,
       "request": {
@@ -2436,12 +2543,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 99,
       "request": {
@@ -2474,12 +2583,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 101,
       "request": {
@@ -2512,14 +2623,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 103,
       "request": {
@@ -2542,6 +2655,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -2611,7 +2728,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -2621,7 +2737,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 105,
@@ -2654,6 +2770,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -2723,7 +2843,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -2733,7 +2852,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 107,
@@ -2766,6 +2885,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -2835,7 +2958,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -2845,7 +2967,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 109,
@@ -2878,6 +3000,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -2947,7 +3073,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -2957,7 +3082,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 111,
@@ -2990,6 +3115,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3059,7 +3188,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3069,7 +3197,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 113,
@@ -3102,6 +3230,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3171,7 +3303,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3181,7 +3312,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 115,
@@ -3214,6 +3345,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3283,7 +3418,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3293,7 +3427,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 117,
@@ -3326,6 +3460,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3395,7 +3533,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3405,7 +3542,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 119,
@@ -3438,6 +3575,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3507,7 +3648,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3517,7 +3657,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 121,
@@ -3550,6 +3690,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3619,7 +3763,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3629,7 +3772,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 123,
@@ -3662,6 +3805,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3731,7 +3878,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3741,7 +3887,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 125,
@@ -3774,6 +3920,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3843,7 +3993,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3853,7 +4002,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 127,
@@ -3886,6 +4035,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -3955,7 +4108,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -3965,7 +4117,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 129,
@@ -3998,6 +4150,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -4067,7 +4223,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -4077,7 +4232,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 131,
@@ -4110,6 +4265,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -4179,7 +4338,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -4189,7 +4347,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 133,
@@ -4223,6 +4381,10 @@
       "method": "publish",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "ratelimited",
           "payload": "string",
           "value": "Rate limited. (domain). Verify email or try again in <time>."
@@ -4240,7 +4402,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -4250,7 +4411,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 135,
@@ -4287,12 +4448,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 137,
       "request": {
@@ -4325,12 +4488,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 139,
       "request": {
@@ -4363,14 +4528,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 141,
       "request": {
@@ -4393,6 +4560,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -4462,7 +4633,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -4472,7 +4642,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 143,
@@ -4505,6 +4675,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -4574,7 +4748,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -4584,7 +4757,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 145,
@@ -4617,6 +4790,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -4686,7 +4863,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -4696,7 +4872,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 147,
@@ -4739,12 +4915,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 149,
       "request": {
@@ -4775,14 +4953,15 @@
       "method": "POST",
       "path": "/<domain>/rollback",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 151,
       "request": {
@@ -4813,12 +4992,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 153,
       "request": {
@@ -4849,14 +5030,15 @@
       "method": "POST",
       "path": "/<domain>/rollback",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 155,
       "request": {
@@ -4887,12 +5069,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 157,
       "request": {
@@ -4923,14 +5107,15 @@
       "method": "POST",
       "path": "/<domain>/rollback",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 159,
       "request": {
@@ -4961,12 +5146,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 161,
       "request": {
@@ -4997,12 +5184,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 163,
       "request": {
@@ -5033,14 +5222,15 @@
       "method": "POST",
       "path": "/<domain>/rollfore",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 165,
       "request": {
@@ -5071,12 +5261,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 167,
       "request": {
@@ -5107,12 +5299,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 169,
       "request": {
@@ -5143,14 +5337,15 @@
       "method": "POST",
       "path": "/<domain>/rollfore",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 171,
       "request": {
@@ -5181,12 +5376,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 173,
       "request": {
@@ -5217,14 +5414,15 @@
       "method": "POST",
       "path": "/<domain>/rollfore",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 175,
       "request": {
@@ -5255,12 +5453,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 177,
       "request": {
@@ -5295,14 +5495,15 @@
       "method": "PUT",
       "path": "/<domain>/rev/<rev>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 179,
       "request": {
@@ -5339,14 +5540,15 @@
       "method": "PUT",
       "path": "/<domain>/rev/<rev>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 181,
       "request": {
@@ -5377,14 +5579,15 @@
       "method": "PUT",
       "path": "/<domain>/rev/<rev>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 183,
       "request": {
@@ -5415,12 +5618,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 185,
       "request": {
@@ -5451,12 +5656,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 187,
       "request": {
@@ -5477,6 +5684,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -5546,7 +5757,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -5557,7 +5767,7 @@
         "stage",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 189,
@@ -5600,12 +5810,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 191,
       "request": {
@@ -5636,12 +5848,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 193,
       "request": {
@@ -5662,6 +5876,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -5731,7 +5949,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -5742,7 +5959,7 @@
         "stage",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 195,
@@ -5785,12 +6002,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 197,
       "request": {
@@ -5821,12 +6040,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 199,
       "request": {
@@ -5857,14 +6078,15 @@
       "method": "PUT",
       "path": "/<domain>/rev",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "content-length",
-        "content-type=application/x-www-form-urlencoded",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 201,
       "request": {
@@ -5895,12 +6117,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 203,
       "request": {
@@ -5931,12 +6155,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 205,
       "request": {
@@ -5957,6 +6183,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -6026,7 +6256,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -6037,7 +6266,7 @@
         "stage",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 207,
@@ -6080,12 +6309,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 209,
       "request": {
@@ -6116,12 +6347,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 211,
       "request": {
@@ -6142,6 +6375,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -6211,7 +6448,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -6221,7 +6457,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 213,
@@ -6264,12 +6500,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 215,
       "request": {
@@ -6300,12 +6538,14 @@
       "method": "GET",
       "path": "/<domain>/metadata.json",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 217,
       "request": {
@@ -6336,12 +6576,14 @@
       "method": "DELETE",
       "path": "/<domain>/rev/<rev>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 219,
       "request": {
@@ -6372,12 +6614,14 @@
       "method": "GET",
       "path": "/<domain>/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 221,
       "request": {
@@ -6408,12 +6652,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 223,
       "request": {
@@ -6446,12 +6692,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 225,
       "request": {
@@ -6488,12 +6736,14 @@
       "method": "GET",
       "path": "/<domain>/status",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 227,
       "request": {
@@ -6516,6 +6766,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -6585,7 +6839,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic <email>:set",
         "cmd",
         "connection=keep-alive",
@@ -6595,7 +6848,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 229,
@@ -6638,12 +6891,14 @@
       "method": "GET",
       "path": "/<domain>/status",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 231,
       "request": {
@@ -6666,6 +6921,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -6735,7 +6994,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic <email>:set",
         "cmd",
         "connection=keep-alive",
@@ -6745,7 +7003,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 233,
@@ -6788,12 +7046,14 @@
       "method": "GET",
       "path": "/<domain>/status",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 235,
       "request": {
@@ -6826,14 +7086,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 237,
       "request": {
@@ -6866,12 +7128,14 @@
       "method": "GET",
       "path": "/<domain>/status",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 239,
       "request": {
@@ -6904,12 +7168,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 241,
       "request": {
@@ -6946,12 +7212,14 @@
       "method": "GET",
       "path": "/<domain>/status",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 243,
       "request": {
@@ -6984,12 +7252,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 245,
       "request": {
@@ -7022,12 +7292,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 247,
       "request": {
@@ -7060,14 +7332,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 249,
       "request": {
@@ -7100,14 +7374,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 251,
       "request": {
@@ -7140,14 +7416,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 253,
       "request": {
@@ -7180,12 +7458,14 @@
       "method": "GET",
       "path": "/tokens",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 255,
       "request": {
@@ -7222,12 +7502,14 @@
       "method": "GET",
       "path": "/tokens",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 257,
       "request": {
@@ -7260,12 +7542,14 @@
       "method": "GET",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 259,
       "request": {
@@ -7288,6 +7572,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -7357,7 +7645,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic <email>:set",
         "cmd",
         "connection=keep-alive",
@@ -7367,7 +7654,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 261,
@@ -7414,14 +7701,16 @@
       "method": "POST",
       "path": "/token",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "content-length",
         "content-type=application/json",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 263,
       "request": {
@@ -7444,6 +7733,10 @@
       "kind": "stream",
       "method": "publish",
       "events": [
+        {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
         {
           "event": "data",
           "payload": "{end,id,total,type,written}"
@@ -7513,7 +7806,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -7523,7 +7815,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 265,
@@ -7557,6 +7849,10 @@
       "method": "publish",
       "events": [
         {
+          "event": "response",
+          "payload": "{_consuming,_dumped,_events,_eventsCount,_maxListeners,_readableState,aborted,client,complete,httpVersion,httpVersionMajor,httpVersionMinor,joinDuplicateHeaders,method,rawHeaders,rawTrailers,req,socket,statusCode,statusMessage,upgrade,url}"
+        },
+        {
           "event": "forbidden",
           "payload": "string",
           "value": "Forbidden"
@@ -7574,7 +7870,6 @@
       "path": "/<domain>",
       "headers": [
         "accept=application/x-ndjson",
-        "accept-encoding=gzip, compress, deflate, br",
         "authorization=Basic token:set",
         "cmd",
         "connection=keep-alive",
@@ -7584,7 +7879,7 @@
         "project-size",
         "timestamp",
         "transfer-encoding=chunked",
-        "user-agent=axios",
+        "user-agent=surge-stream",
         "version=999"
       ],
       "seq": 267,
@@ -7620,12 +7915,14 @@
       "method": "DELETE",
       "path": "/tokens/<id>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 269,
       "request": {
@@ -7659,12 +7956,14 @@
       "method": "GET",
       "path": "/list",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic token:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 271,
       "request": {
@@ -7697,12 +7996,14 @@
       "method": "DELETE",
       "path": "/<domain>",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 273,
       "request": {
@@ -7735,12 +8036,14 @@
       "method": "DELETE",
       "path": "/account",
       "headers": [
-        "accept=application/json, text/plain, */*",
-        "accept-encoding=gzip, compress, deflate, br",
+        "accept=*/*",
+        "accept-encoding=gzip, deflate",
+        "accept-language",
         "authorization=Basic <email>:set",
         "connection=keep-alive",
         "host",
-        "user-agent=axios"
+        "sec-fetch-mode",
+        "user-agent=surge-sdk"
       ],
       "seq": 275,
       "request": {

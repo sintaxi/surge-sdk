@@ -19,7 +19,7 @@ var sum   = require("./summarize")
 
 var PORT     = parseInt(process.env.GOLDEN_PORT || "5002", 10)
 var UPSTREAM = parseInt(process.env.GOLDEN_UPSTREAM || "5001", 10)
-var OUT      = process.env.GOLDEN_OUT || path.join(__dirname, "axios-baseline.json")
+var OUT      = process.env.GOLDEN_OUT || path.join(__dirname, "baseline.json")
 var MAX_TAP  = 65536
 
 var journal = []

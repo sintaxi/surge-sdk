@@ -17,7 +17,7 @@ var load = function(file){
   return JSON.parse(fs.readFileSync(file, "utf8")).journal
 }
 
-var baselineFile  = process.argv[2] || path.join(__dirname, "axios-baseline.json")
+var baselineFile  = process.argv[2] || path.join(__dirname, "baseline.json")
 var candidateFile = process.argv[3] || path.join(__dirname, "candidate.json")
 
 var baseline  = load(baselineFile)
