@@ -65,6 +65,27 @@ it before re-emitting under that name. Reading later would see the mutated
 object and lose the invariant that `surge ssl` depends on. In the journal it
 shows up as `data {…,type} -> progress {…}`.
 
+## Two known sources of false differences
+
+Both come from the server or the environment, not from the transport. Check for
+them before believing a diff.
+
+**Rate limiting** — see the section below. It shows up unmistakably: a publish
+record whose `responseStatus` flips 200 → 429, whose event sequence collapses
+to `response -> ratelimited -> fail`, and a `reason=Rate limited …` response
+header. Everything after it is sequence drift.
+
+**The `dns` key in a publish `info` payload** comes and goes between runs:
+
+    baseline:  "{certs,config,cta,dns,instances,metadata,urls}"
+    candidate: "{certs,config,cta,instances,metadata,urls}"
+
+The payload is parsed whole out of the server's NDJSON, so a missing key can
+only mean the server did not send it — it depends on how the domain's DNS
+resolves at that moment, which for the `.lvh.me` fixtures is not deterministic.
+A one- or two-record diff confined to that key is noise. The same key
+disappearing from *every* publish would not be.
+
 ## Rate limits — read this before trusting a failing run
 
 slushi caps publishes at **240 per 15 minutes per IP, halved to 120 for
