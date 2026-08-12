@@ -168,6 +168,26 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // browser-handoff login (plans/auth-cli-mfa.md stage 1): open a
+    // device session, then poll for the approved token. No auth on
+    // either call — this IS login. Poll answers are always 200 with a
+    // status of pending, approved (token rides once), or gone.
+    loginSession: function(host, callback){
+      return call({
+        url: "/login/session",
+        method: "POST",
+        data: { host: host }
+      }, callback)
+    },
+
+    loginPoll: function(uuid, poll, callback){
+      return call({
+        url: "/login/session/" + uuid + "/poll",
+        method: "POST",
+        data: { poll: poll }
+      }, callback)
+    },
+
     tokens: function(userCreds, callback){
       return call({
         url: "/tokens",
