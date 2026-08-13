@@ -180,6 +180,16 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // opens a browser ceremony to set up or manage two-factor auth —
+    // the page runs the whole ceremony, nothing comes back to collect
+    mfaSession: function(userCreds, callback){
+      return call({
+        url: "/mfa/session",
+        method: "POST",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     loginPoll: function(uuid, poll, callback){
       return call({
         url: "/login/session/" + uuid + "/poll",
