@@ -92,6 +92,15 @@ var request = function(opts, callback){
     if (streaming) init.duplex = "half"
   }
 
+  // node does not follow redirects: up to 18.13 its fetch carries the
+  // authorization header (a token, or the password at login) on to whatever
+  // origin a redirect names. a 3xx reaches sdk.js as itself, as it does from
+  // surge-stream. browsers strip the header on a cross-origin redirect
+  // themselves, and manual there yields an opaque status-0 response
+  if (typeof process !== "undefined" && process.versions && process.versions.node){
+    init.redirect = "manual"
+  }
+
   fetch(opts.url, init).then(function(res){
     var adapted = { statusCode: res.status, headers: plain(res.headers) }
     if (opts.stream) return callback(null, adapted, null, res.body)

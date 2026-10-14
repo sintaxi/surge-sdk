@@ -71,23 +71,49 @@ describe("errors", function(){
     })
   })
 
-  it("should follow a redirect, as axios did", function(done){
-    // fetch follows by default and there is no clean way to do otherwise in
-    // both runtimes: redirect:"manual" yields an opaque status-0 response in a
-    // browser. axios followed redirects too, so this is the long-standing
-    // behaviour rather than a new one. no api route redirects in any case.
+  it("should report a redirect rather than follow it", function(done){
+    // node only (the browser still follows, and strips the header itself).
+    // following is what leaked: node <= 18.13 fetch sends the authorization
+    // header on to a cross-origin redirect target. no api route redirects an
+    // sdk call, so nothing relied on following.
+    var moved = false
     serve(function(req, res){
       if (req.url === "/stats"){
         res.writeHead(302, { "Location": "/moved" })
         return res.end()
       }
+      moved = true
       res.writeHead(200, { "Content-Type": "application/json" })
       res.end(JSON.stringify({ projects: "7" }))
     }, function(api, close){
       api.stats(function(error, stats){
-        should.not.exist(error)
-        stats.should.have.property("projects", "7")
+        should.exist(error)
+        error.should.have.property("status", 302)
+        error.messages.should.eql(["endpoint redirected (302)"])
+        moved.should.equal(false)
         return close(done)
+      })
+    })
+  })
+
+  it("should not carry credentials to a cross-origin redirect target", function(done){
+    var reached = false
+    var other = http.createServer(function(req, res){
+      reached = req.headers.authorization || true
+      res.end("{}")
+    })
+    other.listen(0, function(){
+      serve(function(req, res){
+        res.writeHead(307, { "Location": "http://127.0.0.1:" + other.address().port + "/account" })
+        res.end()
+      }, function(api, close){
+        api.account({ user: "someone@example.com", pass: "secret" }, function(error){
+          should.exist(error)
+          error.should.have.property("status", 307)
+          reached.should.equal(false)
+          other.close()
+          return close(done)
+        })
       })
     })
   })
