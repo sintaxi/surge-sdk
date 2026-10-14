@@ -28,24 +28,50 @@ var stream = function(config){
   }
 
   // Helper: Recursively get all files in a directory
-  var getFiles = function(dir, ig, prefix) {
+  //
+  // symlinks are resolved here, client side, and packed as the content they
+  // point at (tar follow), so the server only ever receives regular files. a
+  // link that resolves to nothing (dangling, or back to an ancestor) is
+  // skipped and reported rather than crashing the publish. entries that are
+  // not symlinks take exactly the path they always have.
+  //
+  // ancestors holds the real path of every directory above this one, root
+  // first, so a link back up the tree is caught before it recurses
+  var getFiles = function(dir, ig, prefix, ancestors, skipped) {
     var results = []
     var entries = fs.readdirSync(dir)
     for (var i = 0; i < entries.length; i++) {
       var entry = entries[i]
       var fullPath = path.join(dir, entry)
       var relativePath = prefix ? prefix + "/" + entry : entry
-      var stat = fs.statSync(fullPath)
+      var stat = fs.lstatSync(fullPath)
+      var isLink = stat.isSymbolicLink()
+      if (isLink) {
+        try {
+          stat = fs.statSync(fullPath)
+        } catch (e) {
+          // dangling, or a chain of links that never ends (ELOOP)
+          if (!ig.ignores(relativePath)) skipped.push(relativePath)
+          continue
+        }
+      }
       if (stat.isDirectory()) {
         // Check if directory itself should be ignored
-        if (!ig.ignores(relativePath + "/")) {
-          results = results.concat(getFiles(fullPath, ig, relativePath))
+        if (ig.ignores(relativePath + "/")) continue
+        var realPath = isLink
+          ? fs.realpathSync.native(fullPath)
+          : path.join(ancestors[ancestors.length - 1], entry)
+        if (ancestors.indexOf(realPath) !== -1) {
+          skipped.push(relativePath)
+          continue
         }
-      } else {
+        results = results.concat(getFiles(fullPath, ig, relativePath, ancestors.concat(realPath), skipped))
+      } else if (stat.isFile()) {
         // Check if file should be ignored
-        if (!ig.ignores(relativePath)) {
-          results.push(relativePath)
-        }
+        if (!ig.ignores(relativePath)) results.push(relativePath)
+      } else if (!ig.ignores(relativePath)) {
+        // fifos, sockets and devices have no content, and a fifo hangs tar
+        skipped.push(relativePath)
       }
     }
     return results
@@ -69,19 +95,25 @@ var stream = function(config){
     var parentDir = path.dirname(absolutePath)
 
     // Get all files (not directories) to pack, respecting ignore rules
-    var files = getFiles(absolutePath, ig, "")
+    var skipped = []
+    var files = getFiles(absolutePath, ig, "", [fs.realpathSync.native(absolutePath)], skipped)
 
     // Prefix each file with the directory name for tar structure
     var tarFiles = files.map(function(f) { return path.join(dirName, f) })
 
     // Create gzipped tar stream with only file entries (no directory entries)
-    // Use portable mode and epoch mtime to match old tarr output format
-    return tar.c({
+    // Use portable mode and epoch mtime to match old tarr output format.
+    // follow packs a symlinked file as its target's content; getFiles already
+    // follows symlinked directories, so links are never shipped as links
+    var body = tar.c({
       gzip: true,
       cwd: parentDir,
       portable: true,
+      follow: true,
       mtime: new Date(0)
     }, tarFiles)
+
+    return { body: body, skipped: skipped }
   }
 
   // Helper: Handle NDJSON response data and emit events
@@ -171,14 +203,20 @@ var stream = function(config){
   // ============================================================
 
   var publish = function(projectPath, projectDomain, userCreds, headers, argv){
-    return handshake({
+    var project = createProjectStream(projectPath)
+    var emitter = handshake({
       path:        projectDomain,
-      body:        createProjectStream(projectPath),
+      body:        project.body,
       contentType: "application/gzip",
       userCreds:   userCreds,
       headers:     headers,
       argv:        argv
     })
+    // the caller attaches its listeners only after this returns
+    if (project.skipped.length){
+      process.nextTick(function(){ emitter.emit("skipped", project.skipped) })
+    }
+    return emitter
   }
 
   var encrypt = function(projectDomain, userCreds, headers, argv){
