@@ -71,7 +71,7 @@ describe("tokens", function(){
   it("should let a scoped token read its own identity", function(done){
     sdk.account({ user: "token", pass: scopedToken }, function(error, account){
       should.not.exist(error)
-      account.should.have.property("email", creds.user)
+      account.should.have.property("email", creds.user.toLowerCase())   // stored normalized (rolodex 0.20.0)
       return done()
     })
   })

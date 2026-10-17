@@ -55,7 +55,7 @@ describe("account", function(){
     sdk.verification(creds, function(error, reply){
       should.not.exist(error)
       reply.should.have.property("sent", true)
-      reply.should.have.property("email", creds.user)
+      reply.should.have.property("email", creds.user.toLowerCase())   // stored normalized (rolodex 0.20.0)
       return done()
     })
   })
