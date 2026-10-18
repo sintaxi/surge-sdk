@@ -19,7 +19,6 @@
   "dependencies": {
     "ignore": "7.0.5",
     "split": "1.0.1",
-    "surge-ignore": "0.3.0",
-    "tar": "7.5.22"
+    "surge-ignore": "0.3.0"
   }
 }

@@ -4,7 +4,9 @@ var fs     = require("fs")
 var os     = require("os")
 var path   = require("path")
 var stream = require("../stream")
-var tar    = require(require.resolve("tar", { paths: [path.join(__dirname, "../stream")] }))
+// a dev dependency: the stream packs with lib/pack.js, node-tar only reads
+// the archive back here
+var tar    = require("tar")
 
 // symlinks in a project, against a throwaway server that unpacks what the
 // stream sends. the contract: links are resolved client side and arrive as

@@ -3,8 +3,12 @@ var path          = require("path")
 var fs            = require("fs")
 var url           = require("url")
 var EventEmitter  = require('events')
+var zlib          = require("zlib")
+var Readable      = require("stream").Readable
+var Transform     = require("stream").Transform
+var pipeline      = require("stream").pipeline
 var split         = require("split")
-var tar           = require('tar')
+var pack          = require("./pack")
 var Ignore        = require('ignore')
 var surgeIgnore   = require("surge-ignore")
 var request       = require("./request")
@@ -77,6 +81,127 @@ var stream = function(config){
     return results
   }
 
+  // the archive, one file at a time: each file's header, its content read
+  // as the upload drains (a project can be hundreds of MB), its padding,
+  // then the end blocks. fs.stat follows a symlinked file to its target,
+  // as getFiles already follows symlinked directories. Each file is read
+  // for exactly the size its header states, as node-tar did: a file that
+  // grows mid-publish (an agent rewriting the project) goes as it was at
+  // the stat, one that shrinks fails the upload rather than corrupt it
+  var tarStream = function(absolutePath, dirName, files){
+    // look-ahead: the next AHEAD files are stat'd (and read, when small)
+    // while the current one goes out, so a project of thousands of small
+    // files isn't one round trip per file. Bounded: at most AHEAD small
+    // files (each <= SMALL bytes) sit in memory at once
+    var AHEAD = 8
+    var SMALL = 1024 * 1024
+    var CHUNK = 1024 * 1024
+
+    var slots   = []      // index -> { err, stat, data, ready, waiting }
+    var started = 0       // next index to prefetch
+    var current = 0       // next index to emit
+    var reading = null    // a large file's read stream, while it goes out
+    var busy    = false   // waiting on the current file's slot
+    var done    = false
+
+    var out = new Readable({
+      highWaterMark: CHUNK,
+      read: function(){
+        if (reading) return reading.resume()
+        if (!busy && !done) next()
+      }
+    })
+
+    // a small file's content, exactly stat.size bytes: a file that grew
+    // since the stat goes as it was, one that shrank can't be framed
+    var readSmall = function(full, f, size, cb){
+      fs.readFile(full, function(err, data){
+        if (err) return cb(err)
+        if (data.length < size) return cb(new Error("file shrank during publish: " + f))
+        cb(null, data.length > size ? data.subarray(0, size) : data)
+      })
+    }
+
+    var prefetch = function(){
+      while (started < files.length && started - current < AHEAD){
+        (function(i){
+          var f = files[i], full = path.join(absolutePath, f)
+          var slot = slots[i] = { ready: false, waiting: null }
+          var finish = function(err, stat, data){
+            slot.err = err; slot.stat = stat; slot.data = data; slot.ready = true
+            if (slot.waiting){ var w = slot.waiting; slot.waiting = null; w() }
+          }
+          fs.stat(full, function(err, stat){
+            if (err) return finish(err)
+            if (stat.size === 0 || stat.size > SMALL) return finish(null, stat, null)
+            readSmall(full, f, stat.size, function(err, data){ finish(err, stat, data) })
+          })
+        })(started++)
+      }
+    }
+
+    var next = function(){
+      if (current >= files.length){
+        done = true
+        out.push(Buffer.from(pack.end()))
+        return out.push(null)
+      }
+      prefetch()
+      var i = current, slot = slots[i]
+      if (!slot.ready){
+        busy = true
+        slot.waiting = function(){ busy = false; emit(i) }
+        return
+      }
+      emit(i)
+    }
+
+    var emit = function(i){
+      var slot = slots[i], f = files[i]
+      slots[i] = null
+      current = i + 1
+      if (slot.err) return out.destroy(slot.err)
+      var size = slot.stat.size
+      out.push(Buffer.from(pack.header(dirName + "/" + f, size, slot.stat.mode)))
+      if (size === 0) return next()
+      if (slot.data){
+        out.push(slot.data)
+        if (out.push(Buffer.from(pack.padding(size)))) next()
+        return
+      }
+      // a large file streams, read for exactly its stated size
+      var sent = 0
+      reading = fs.createReadStream(path.join(absolutePath, f), { start: 0, end: size - 1, highWaterMark: CHUNK })
+      reading.on("data", function(chunk){
+        sent += chunk.length
+        if (!out.push(chunk)) reading.pause()
+      })
+      reading.on("error", function(err){ out.destroy(err) })
+      reading.on("end", function(){
+        reading = null
+        if (sent !== size) return out.destroy(new Error("file shrank during publish: " + f))
+        if (out.push(Buffer.from(pack.padding(size)))) next()
+      })
+    }
+
+    return out
+  }
+
+  // gzip as node-tar's portable mode wrote it: the OS byte of the gzip
+  // header (byte 9) is 255, "unknown", not the packing machine's OS
+  var portableGzip = function(){
+    var first = true
+    return new Transform({
+      transform: function(chunk, enc, cb){
+        if (first && chunk.length > 9){
+          first = false
+          chunk[9] = 255
+        }
+        cb(null, chunk)
+      }
+    })
+  }
+
   // Helper: Create project read stream with tar + gzip
   var createProjectStream = function(projectPath){
     // Create ignore filter with default surge rules
@@ -88,30 +213,18 @@ var stream = function(config){
       ig.add(fs.readFileSync(surgeignorePath, "utf8"))
     }
 
-    // Get directory name and parent path for tar structure
-    // Old implementation used: "dirname/file.txt" not "./file.txt"
+    // the directory's name prefixes every entry: "dirname/file.txt", not
+    // "./file.txt"
     var absolutePath = path.resolve(projectPath)
     var dirName = path.basename(absolutePath)
-    var parentDir = path.dirname(absolutePath)
 
     // Get all files (not directories) to pack, respecting ignore rules
     var skipped = []
     var files = getFiles(absolutePath, ig, "", [fs.realpathSync.native(absolutePath)], skipped)
 
-    // Prefix each file with the directory name for tar structure
-    var tarFiles = files.map(function(f) { return path.join(dirName, f) })
-
-    // Create gzipped tar stream with only file entries (no directory entries)
-    // Use portable mode and epoch mtime to match old tarr output format.
-    // follow packs a symlinked file as its target's content; getFiles already
-    // follows symlinked directories, so links are never shipped as links
-    var body = tar.c({
-      gzip: true,
-      cwd: parentDir,
-      portable: true,
-      follow: true,
-      mtime: new Date(0)
-    }, tarFiles)
+    // only file entries, no directory entries, each under the directory's
+    // name ("dirname/file.txt"), which the server strips
+    var body = pipeline(tarStream(absolutePath, dirName, files), zlib.createGzip(), portableGzip(), function(){})
 
     return { body: body, skipped: skipped }
   }
