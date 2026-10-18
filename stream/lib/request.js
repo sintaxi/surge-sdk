@@ -64,9 +64,11 @@ var collect = function(res, callback){
   res.on("error", callback)
 }
 
-// opts: { url, method, headers, body, auth, stream }
+// opts: { url, method, headers, body, auth, stream, timeout }
 // body may be a string or a readable stream. with stream:true the response is
-// handed over unread, for the ndjson handshakes to pipe.
+// handed over unread, for the ndjson handshakes to pipe. timeout (ms): an
+// idle socket that long fails the request, for calls a caller can do
+// without (a publish itself has none: a big upload can be slow)
 var request = function(opts, callback){
   var done      = once(callback)
   var target    = url.parse(opts.url)
@@ -99,6 +101,7 @@ var request = function(opts, callback){
   })
 
   req.on("error", function(error){ return done(error) })
+  if (opts.timeout) req.setTimeout(opts.timeout, function(){ req.destroy(new Error("timeout")) })
 
   if (streaming){
     // without this the tar stream's own failure lands as an unhandled "error"

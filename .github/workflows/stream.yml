@@ -26,4 +26,4 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm ci --ignore-scripts
         working-directory: stream
-      - run: npx mocha test/pack.js test/symlinks.js test/single.js test/project.js --timeout 30000 --exit
+      - run: npx mocha test/pack.js test/symlinks.js test/single.js test/project.js test/carry.js --timeout 30000 --exit

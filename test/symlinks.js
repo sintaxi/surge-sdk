@@ -31,6 +31,8 @@ var project = function(name, build){
 var publish = function(dir, callback){
   var result = { files: {}, types: [], skipped: [] }
   var srv = http.createServer(function(req, res){
+    // a server without carry (test/carry.js)
+    if (req.method === "POST") return res.writeHead(404).end()
     var parser = new tar.Parser()
     parser.on("entry", function(entry){
       var chunks = []

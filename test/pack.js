@@ -51,6 +51,9 @@ var build = function(name, files){
 var published = function(dir, opts, callback){
   var chunks = []
   var srv = http.createServer(function(req, res){
+    // the bytes of the upload itself: a server without carry
+    // (test/carry.js) answers its request with a 404
+    if (req.method === "POST") return res.writeHead(404).end()
     req.on("data", function(c){
       chunks.push(c)
       // a slow reader: the stream has to wait for it, not buffer the project

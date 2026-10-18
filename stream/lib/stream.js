@@ -1,6 +1,7 @@
 
 var path          = require("path")
 var fs            = require("fs")
+var crypto        = require("crypto")
 var url           = require("url")
 var EventEmitter  = require('events')
 var zlib          = require("zlib")
@@ -218,17 +219,23 @@ var stream = function(config){
     var name = path.basename(file)
     var rule = project.single(name)
     if (rule.refused) return { refused: rule.refused }
-    var entries = [{ name: rule.as, full: file }]
     return {
-      entries: entries,
-      body: pipeline(tarStream(name.replace(/\.[^.]*$/, "") || "project", entries), zlib.createGzip(), portableGzip(), function(){}),
+      entries: [{ name: rule.as, full: file }],
+      dirName: name.replace(/\.[^.]*$/, "") || "project",
       skipped: [],
       single: { file: name, as: rule.as, local: localReferences(file) }
     }
   }
 
-  // Helper: Create project read stream with tar + gzip
-  var createProjectStream = function(projectPath){
+  // the upload: entries packed under dirName (which the server strips),
+  // gzipped
+  var packBody = function(dirName, entries){
+    return pipeline(tarStream(dirName, entries), zlib.createGzip(), portableGzip(), function(){})
+  }
+
+  // what a project is made of: { entries, dirName, skipped } plus single
+  // for a one-file project, or { refused }
+  var createProject = function(projectPath){
     if (fs.statSync(projectPath).isFile()) return singleFile(path.resolve(projectPath))
 
     // surge's ignore rules, plus the project's .surgeignore
@@ -247,15 +254,85 @@ var stream = function(config){
     // only file entries, no directory entries, each under the directory's
     // name ("dirname/file.txt"), which the server strips
     var entries = files.map(function(f){ return { name: f, full: path.join(absolutePath, f) } })
-    var body = pipeline(tarStream(dirName, entries), zlib.createGzip(), portableGzip(), function(){})
 
-    return { entries: entries, body: body, skipped: skipped }
+    return { entries: entries, dirName: dirName, skipped: skipped }
+  }
+
+  // upload dedupe (slushi plans/upload-dedupe.md): before packing, the
+  // server is told every file's sha256 and size (POST /:domain/carry) and
+  // answers which of them its current revision of the domain lacks. Only
+  // those go in the upload, with the ticket that carries the rest. Any
+  // trouble on the way - a file that can't be read, an older server, an
+  // error, no answer - just means the upload sends everything, as always
+  var CARRY_MIN   = 1024 * 1024        // smaller projects: the extra round trip costs more than it saves
+  var CARRY_FILES = 100000             // the server's limit
+  var CARRY_BODY  = 9 * 1024 * 1024    // under the server's 10mb
+
+  var hashFile = function(full, cb){
+    var hash = crypto.createHash("sha256"), size = 0
+    var s = fs.createReadStream(full)
+    s.on("data", function(d){ size += d.length; hash.update(d) })
+    s.on("error", cb)
+    s.on("end", function(){ cb(null, { sha256: hash.digest("hex"), size: size }) })
+  }
+
+  // name -> { sha256, size } for every entry, four files at a time
+  var hashAll = function(entries, cb){
+    var out = {}, next = 0, active = 0, finished = 0, failed = false
+    var start = function(){
+      while (active < 4 && next < entries.length){
+        (function(e){
+          active++
+          hashFile(e.full, function(err, h){
+            active--
+            if (failed) return
+            if (err){ failed = true; return cb(err) }
+            out[e.name] = h
+            if (++finished === entries.length) return cb(null, out)
+            start()
+          })
+        })(entries[next++])
+      }
+    }
+    if (!entries.length) return cb(null, out)
+    start()
+  }
+
+  // calls back with { ticket, missing: [names] }, or nothing for a full
+  // upload
+  var askCarry = function(projectDomain, userCreds, entries, cb){
+    hashAll(entries, function(err, files){
+      if (err) return cb()
+      var body = JSON.stringify({ files: files })
+      if (Buffer.byteLength(body) > CARRY_BODY) return cb()
+      request({
+        url:     url.resolve(config.endpoint, projectDomain + "/carry"),
+        method:  "POST",
+        headers: { version: config.version, accept: "application/json" },
+        body:    body,
+        auth:    creds(userCreds),
+        timeout: 30000
+      }, function(err, res, text){
+        if (err || res.statusCode !== 200) return cb()
+        var reply = null
+        try { reply = JSON.parse(text) } catch(e){}
+        if (!reply || !reply.ticket || !Array.isArray(reply.missing)) return cb()
+        cb({ ticket: reply.ticket, missing: reply.missing })
+      })
+    })
   }
 
   // Helper: Handle NDJSON response data and emit events
-  var handleResponseData = function(emitter, data, successRef){
+  // stale: set (instead of emitting anything) on the frame a carried
+  // publish ends with when the server no longer has a carried file - the
+  // publish goes again in full
+  var handleResponseData = function(emitter, data, successRef, stale){
     try {
       var obj = JSON.parse(data)
+      if (stale && obj.type === "error" && obj.error && obj.error.carry === "stale"){
+        stale.value = true
+        return
+      }
       emitter.emit("data", obj)
 
       if (obj.type === "info") successRef.value = true
@@ -280,9 +357,12 @@ var stream = function(config){
   // one handshake for all three verbs. they differ only in the path they PUT
   // to, what they send as a body, and the content-type; everything after the
   // response is identical, so it lives here once.
+  // opts.emitter: the caller's emitter, to keep one across a retry.
+  // opts.retry: called in place of fail when a carried publish went stale
   var handshake = function(opts){
-    var emitter = new EventEmitter()
+    var emitter = opts.emitter || new EventEmitter()
     var success = { value: false }
+    var stale   = opts.retry ? { value: false } : null
 
     var headers = Object.assign({ version: config.version }, opts.headers || {})
     if (opts.argv) headers.argv = JSON.stringify(opts.argv)
@@ -317,7 +397,7 @@ var stream = function(config){
       }
 
       res.pipe(split()).on("data", function(data){
-        handleResponseData(emitter, data, success)
+        handleResponseData(emitter, data, success, stale)
       })
 
       res.on("error", function(error){
@@ -325,6 +405,7 @@ var stream = function(config){
       })
 
       res.on("end", function(){
+        if (stale && stale.value && !success.value) return opts.retry()
         success.value === true
           ? emitter.emit("success")
           : emitter.emit("fail")
@@ -340,20 +421,22 @@ var stream = function(config){
 
   // file-count and project-size from the project itself when the caller
   // doesn't pass them (the size cap reads both before the upload)
-  var withSizes = function(headers, entries){
+  var withSizes = function(headers, entries, bytes){
     var out = Object.assign({}, headers || {})
     if (out["file-count"] === undefined) out["file-count"] = String(entries.length)
-    if (out["project-size"] === undefined){
-      out["project-size"] = String(entries.reduce(function(n, e){
-        try { return n + fs.statSync(e.full).size } catch(x){ return n }
-      }, 0))
-    }
+    if (out["project-size"] === undefined) out["project-size"] = String(bytes)
     return out
+  }
+
+  var totalSize = function(entries){
+    return entries.reduce(function(n, e){
+      try { return n + fs.statSync(e.full).size } catch(x){ return n }
+    }, 0)
   }
 
   // projectPath: a directory, or a single file (see project.single)
   var publish = function(projectPath, projectDomain, userCreds, headers, argv){
-    var project = createProjectStream(projectPath)
+    var project = createProject(projectPath)
 
     // refused before any request, in the shape a server refusal arrives in
     if (project.refused){
@@ -365,14 +448,39 @@ var stream = function(config){
       return refused
     }
 
-    var emitter = handshake({
-      path:        projectDomain,
-      body:        project.body,
-      contentType: "application/gzip",
-      userCreds:   userCreds,
-      headers:     withSizes(headers, project.entries),
-      argv:        argv
-    })
+    var bytes   = totalSize(project.entries)
+    var emitter = new EventEmitter()
+
+    // headers always describe the whole project, however much of it the
+    // upload carries. A carried upload that goes stale is sent again in
+    // full, once, on the same emitter
+    var send = function(entries, ticket){
+      handshake({
+        emitter:     emitter,
+        path:        projectDomain,
+        body:        packBody(project.dirName, entries),
+        contentType: "application/gzip",
+        userCreds:   userCreds,
+        headers:     Object.assign(withSizes(headers, project.entries, bytes), ticket ? { "carry-ticket": ticket } : {}),
+        argv:        argv,
+        retry:       ticket ? function(){ send(project.entries, null) } : null
+      })
+    }
+
+    var carrying = !project.single && bytes >= CARRY_MIN && project.entries.length <= CARRY_FILES
+    if (!carrying){
+      send(project.entries, null)
+    } else {
+      askCarry(projectDomain, userCreds, project.entries, function(reply){
+        if (!reply) return send(project.entries, null)
+        var missing = {}
+        reply.missing.forEach(function(name){ missing[name] = true })
+        var entries = project.entries.filter(function(e){ return missing[e.name] })
+        emitter.emit("carry", { carried: project.entries.length - entries.length, sent: entries.length })
+        send(entries, reply.ticket)
+      })
+    }
+
     // the caller attaches its listeners only after this returns
     if (project.single){
       process.nextTick(function(){ emitter.emit("single", project.single) })
