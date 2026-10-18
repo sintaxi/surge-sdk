@@ -9,8 +9,7 @@ var Transform     = require("stream").Transform
 var pipeline      = require("stream").pipeline
 var split         = require("split")
 var pack          = require("./pack")
-var Ignore        = require('ignore')
-var surgeIgnore   = require("surge-ignore")
+var project       = require("./project")
 var request       = require("./request")
 
 
@@ -88,7 +87,9 @@ var stream = function(config){
   // for exactly the size its header states, as node-tar did: a file that
   // grows mid-publish (an agent rewriting the project) goes as it was at
   // the stat, one that shrinks fails the upload rather than corrupt it
-  var tarStream = function(absolutePath, dirName, files){
+  // entries: [{ name, full }] - the path inside the project, and the file
+  // on disk it's read from (a single file is published under another name)
+  var tarStream = function(dirName, entries){
     // look-ahead: the next AHEAD files are stat'd (and read, when small)
     // while the current one goes out, so a project of thousands of small
     // files isn't one round trip per file. Bounded: at most AHEAD small
@@ -123,9 +124,9 @@ var stream = function(config){
     }
 
     var prefetch = function(){
-      while (started < files.length && started - current < AHEAD){
+      while (started < entries.length && started - current < AHEAD){
         (function(i){
-          var f = files[i], full = path.join(absolutePath, f)
+          var f = entries[i].name, full = entries[i].full
           var slot = slots[i] = { ready: false, waiting: null }
           var finish = function(err, stat, data){
             slot.err = err; slot.stat = stat; slot.data = data; slot.ready = true
@@ -141,7 +142,7 @@ var stream = function(config){
     }
 
     var next = function(){
-      if (current >= files.length){
+      if (current >= entries.length){
         done = true
         out.push(Buffer.from(pack.end()))
         return out.push(null)
@@ -157,7 +158,7 @@ var stream = function(config){
     }
 
     var emit = function(i){
-      var slot = slots[i], f = files[i]
+      var slot = slots[i], f = entries[i].name
       slots[i] = null
       current = i + 1
       if (slot.err) return out.destroy(slot.err)
@@ -171,7 +172,7 @@ var stream = function(config){
       }
       // a large file streams, read for exactly its stated size
       var sent = 0
-      reading = fs.createReadStream(path.join(absolutePath, f), { start: 0, end: size - 1, highWaterMark: CHUNK })
+      reading = fs.createReadStream(entries[i].full, { start: 0, end: size - 1, highWaterMark: CHUNK })
       reading.on("data", function(chunk){
         sent += chunk.length
         if (!out.push(chunk)) reading.pause()
@@ -202,16 +203,37 @@ var stream = function(config){
     })
   }
 
+  // the files a page uses that exist next to it on disk: publishing the
+  // page alone leaves them behind
+  var localReferences = function(file){
+    var html
+    try { html = fs.readFileSync(file, "utf8").slice(0, 2 * 1024 * 1024) } catch(e){ return [] }
+    var dir = path.dirname(file)
+    return project.references(html).filter(function(ref){
+      try { return fs.statSync(path.join(dir, ref)).isFile() } catch(e){ return false }
+    }).slice(0, 20)
+  }
+
+  var singleFile = function(file){
+    var name = path.basename(file)
+    var rule = project.single(name)
+    if (rule.refused) return { refused: rule.refused }
+    var entries = [{ name: rule.as, full: file }]
+    return {
+      entries: entries,
+      body: pipeline(tarStream(name.replace(/\.[^.]*$/, "") || "project", entries), zlib.createGzip(), portableGzip(), function(){}),
+      skipped: [],
+      single: { file: name, as: rule.as, local: localReferences(file) }
+    }
+  }
+
   // Helper: Create project read stream with tar + gzip
   var createProjectStream = function(projectPath){
-    // Create ignore filter with default surge rules
-    var ig = Ignore().add(surgeIgnore)
+    if (fs.statSync(projectPath).isFile()) return singleFile(path.resolve(projectPath))
 
-    // Load .surgeignore if it exists
+    // surge's ignore rules, plus the project's .surgeignore
     var surgeignorePath = path.join(projectPath, ".surgeignore")
-    if (fs.existsSync(surgeignorePath)) {
-      ig.add(fs.readFileSync(surgeignorePath, "utf8"))
-    }
+    var ig = project.ignorer(fs.existsSync(surgeignorePath) ? fs.readFileSync(surgeignorePath, "utf8") : null)
 
     // the directory's name prefixes every entry: "dirname/file.txt", not
     // "./file.txt"
@@ -224,9 +246,10 @@ var stream = function(config){
 
     // only file entries, no directory entries, each under the directory's
     // name ("dirname/file.txt"), which the server strips
-    var body = pipeline(tarStream(absolutePath, dirName, files), zlib.createGzip(), portableGzip(), function(){})
+    var entries = files.map(function(f){ return { name: f, full: path.join(absolutePath, f) } })
+    var body = pipeline(tarStream(dirName, entries), zlib.createGzip(), portableGzip(), function(){})
 
-    return { body: body, skipped: skipped }
+    return { entries: entries, body: body, skipped: skipped }
   }
 
   // Helper: Handle NDJSON response data and emit events
@@ -315,17 +338,45 @@ var stream = function(config){
   // PUBLIC API
   // ============================================================
 
+  // file-count and project-size from the project itself when the caller
+  // doesn't pass them (the size cap reads both before the upload)
+  var withSizes = function(headers, entries){
+    var out = Object.assign({}, headers || {})
+    if (out["file-count"] === undefined) out["file-count"] = String(entries.length)
+    if (out["project-size"] === undefined){
+      out["project-size"] = String(entries.reduce(function(n, e){
+        try { return n + fs.statSync(e.full).size } catch(x){ return n }
+      }, 0))
+    }
+    return out
+  }
+
+  // projectPath: a directory, or a single file (see project.single)
   var publish = function(projectPath, projectDomain, userCreds, headers, argv){
     var project = createProjectStream(projectPath)
+
+    // refused before any request, in the shape a server refusal arrives in
+    if (project.refused){
+      var refused = new EventEmitter()
+      process.nextTick(function(){
+        refused.emit("error", { error: { message: project.refused } })
+        refused.emit("fail")
+      })
+      return refused
+    }
+
     var emitter = handshake({
       path:        projectDomain,
       body:        project.body,
       contentType: "application/gzip",
       userCreds:   userCreds,
-      headers:     headers,
+      headers:     withSizes(headers, project.entries),
       argv:        argv
     })
     // the caller attaches its listeners only after this returns
+    if (project.single){
+      process.nextTick(function(){ emitter.emit("single", project.single) })
+    }
     if (project.skipped.length){
       process.nextTick(function(){ emitter.emit("skipped", project.skipped) })
     }

@@ -1,8 +1,9 @@
-# The upload format on every platform the CLI runs on. test/pack.js compares
-# the stream's own packer with node-tar 7 byte for byte on the same tree, so
-# on Windows it proves the archive matches what node-tar (with its win32 path
-# handling) sent before. No server needed. mocha 12 needs node >= 20.19; the
-# 18.13 floor is covered by bin/floor-check against a local slushi.
+# The upload format, single files and the browser-safe project rules, on
+# every platform the CLI runs on. test/pack.js compares the stream's own
+# packer with node-tar 7 byte for byte on the same tree, so on Windows it
+# proves the archive matches what node-tar (with its win32 path handling)
+# sent before. No server needed. mocha 12 needs node >= 20.19; the 18.13
+# floor is covered by bin/floor-check against a local slushi.
 name: stream
 
 on: [push, pull_request]
@@ -25,4 +26,4 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm ci --ignore-scripts
         working-directory: stream
-      - run: npx mocha test/pack.js test/symlinks.js --timeout 30000 --exit
+      - run: npx mocha test/pack.js test/symlinks.js test/single.js test/project.js --timeout 30000 --exit
