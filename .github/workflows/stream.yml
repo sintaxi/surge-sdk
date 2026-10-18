@@ -20,7 +20,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - run: npm ci
-      - run: npm ci
+      # --ignore-scripts: the root prepublish (npm run setversion) runs a
+      # shebang script windows can't, and the tests need no install scripts
+      - run: npm ci --ignore-scripts
+      - run: npm ci --ignore-scripts
         working-directory: stream
       - run: npx mocha test/pack.js test/symlinks.js --timeout 30000 --exit
