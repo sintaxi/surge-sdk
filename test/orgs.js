@@ -39,9 +39,22 @@ describe("orgs", function(){
         error.should.have.property("status", 404)
         sdk.orgRemove("orgs-" + stamp, creds, function(error){
           error.should.have.property("status", 404)
-          return done()
+          sdk.orgMembers("orgs-" + stamp, creds, function(error){
+            error.should.have.property("status", 404)
+            return done()
+          })
         })
       })
+    })
+  })
+
+  it("should refuse joining with a code that isn't valid", function(done){
+    sdk.orgJoin("orgs-" + stamp, "aaaa-bbbb-cccc-dddd", creds, function(error, org){
+      should.exist(error)
+      error.should.have.property("status", 404)
+      error.details.should.have.property("invite", "is not valid")
+      should.not.exist(org)
+      return done()
     })
   })
 

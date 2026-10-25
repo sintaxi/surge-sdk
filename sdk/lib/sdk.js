@@ -266,6 +266,65 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // members and pending invites (pending: true)
+    orgMembers: function(org, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/members",
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // one by email: a member's account email, the email its invite went
+    // to, or a pending invite's
+    orgMember: function(org, email, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/members/" + encodeURIComponent(email),
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // emails a one-time code that any account can join with; inviting the
+    // same email again sends a new one
+    orgInvite: function(org, email, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/members/" + encodeURIComponent(email),
+        method: "POST",
+        data: {},
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // role: "admin" | "member", for a pending invite or a member
+    orgRole: function(org, email, role, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/members/" + encodeURIComponent(email),
+        method: "PUT",
+        data: { role: role },
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // withdraws a pending invite or removes a member
+    orgRevoke: function(org, email, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/members/" + encodeURIComponent(email),
+        method: "DELETE",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // joins as the signed-in account, whatever email the invite went to
+    orgJoin: function(org, code, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/join",
+        method: "POST",
+        data: { code: code },
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     reset: function(email, callback){
       return call({
         url: "/token/reset/" + email,
