@@ -218,6 +218,45 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // orgs (slushi plans/b2b.md): an org is named by its id or slug, or an
+    // old slug that still resolves to it
+    orgs: function(userCreds, callback){
+      return call({
+        url: "/orgs",
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // the org and its members, with the caller's role
+    org: function(org, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org),
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // args: { slug, name } - the caller becomes the org's only admin
+    orgCreate: function(args, userCreds, callback){
+      return call({
+        url: "/orgs",
+        method: "POST",
+        data: args || {},
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // args: { slug, name } - either or both
+    orgRename: function(org, args, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org),
+        method: "PUT",
+        data: args || {},
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     reset: function(email, callback){
       return call({
         url: "/token/reset/" + email,
