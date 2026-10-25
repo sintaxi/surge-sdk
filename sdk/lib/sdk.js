@@ -257,6 +257,15 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // refused while the org holds any domain; its slugs are free at once
+    orgRemove: function(org, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org),
+        method: "DELETE",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     reset: function(email, callback){
       return call({
         url: "/token/reset/" + email,

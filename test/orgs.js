@@ -37,7 +37,10 @@ describe("orgs", function(){
       error.details.should.have.property("org", "does not exist")
       sdk.orgRename("orgs-" + stamp, { name: "Nope" }, creds, function(error){
         error.should.have.property("status", 404)
-        return done()
+        sdk.orgRemove("orgs-" + stamp, creds, function(error){
+          error.should.have.property("status", 404)
+          return done()
+        })
       })
     })
   })
