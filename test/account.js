@@ -132,6 +132,11 @@ describe("account", function(){
       account.should.have.property("role")
       account.should.have.property("plan")
       account.should.have.property("card")
+      // a token-authenticated request also names its token, by id
+      account.should.have.property("token")
+      account.token.id.should.match(/^tok-/)
+      account.token.scope.should.eql([])
+      delete account.token
       account.should.eql(accountObject)
       return done()
     })
