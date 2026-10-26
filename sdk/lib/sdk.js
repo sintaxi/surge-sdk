@@ -286,12 +286,18 @@ var sdk = function(config, surgeStream){
     },
 
     // emails a one-time code that any account can join with; inviting the
-    // same email again sends a new one
-    orgInvite: function(org, email, userCreds, callback){
+    // same email again sends a new one. role is optional: "member" (the
+    // default) or "admin", which only an admin may send
+    orgInvite: function(org, email, role, userCreds, callback){
+      if (!callback){
+        callback = userCreds
+        userCreds = role
+        role = null
+      }
       return call({
         url: "/orgs/" + encodeURIComponent(org) + "/members/" + encodeURIComponent(email),
         method: "POST",
-        data: {},
+        data: role ? { role: role } : {},
         auth: creds(userCreds)
       }, callback)
     },
