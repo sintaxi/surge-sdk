@@ -331,6 +331,47 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // who owns a domain: { owner: { account: email } | { org: { slug,
+    // name } } | "someone else" }
+    owner: function(projectDomain, userCreds, callback){
+      return call({
+        url: "/" + projectDomain + "/owner",
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // moves a domain into an org you're in, or to your own account (to:
+    // your email); anyone else gets a code instead (transferCode)
+    transfer: function(projectDomain, to, userCreds, callback){
+      return call({
+        url: "/" + projectDomain + "/owner",
+        method: "PUT",
+        data: { to: to },
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // a code whoever claims it takes the domain with: { code, expires_at }.
+    // a new one each time; the last stops working
+    transferCode: function(projectDomain, userCreds, callback){
+      return call({
+        url: "/" + projectDomain + "/owner/code",
+        method: "POST",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // takes the domain a transfer code names into the signed-in account
+    claim: function(code, userCreds, callback){
+      return call({
+        url: "/claim",
+        method: "POST",
+        data: { code: code },
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     reset: function(email, callback){
       return call({
         url: "/token/reset/" + email,

@@ -58,6 +58,32 @@ describe("orgs", function(){
     })
   })
 
+  // transfer's wire shape; moves themselves are slushi test/transfer.js
+  it("should refuse claiming with a code that isn't valid", function(done){
+    sdk.claim("not-a-code", creds, function(error, rsp){
+      should.exist(error)
+      error.should.have.property("status", 404)
+      error.messages[0].should.eql("that code isn't valid - ask for a new one")
+      error.details.should.have.property("code", "is not valid")
+      should.not.exist(rsp)
+      return done()
+    })
+  })
+
+  it("should refuse owner, transfer and codes on a domain the account doesn't hold", function(done){
+    var domain = "orgs-" + stamp + "-nobody.surge.sh"
+    sdk.owner(domain, creds, function(error){
+      error.should.have.property("status", 403)
+      sdk.transfer(domain, "acme", creds, function(error){
+        error.should.have.property("status", 403)
+        sdk.transferCode(domain, creds, function(error){
+          error.should.have.property("status", 403)
+          return done()
+        })
+      })
+    })
+  })
+
   it("should clean up", function(done){
     sdk.nuke(creds, function(error){
       should.not.exist(error)
