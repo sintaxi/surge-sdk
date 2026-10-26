@@ -69,6 +69,20 @@ describe("publish", function(){
     })
   })
 
+  it("should page the list and count every domain", function(done){
+    sdk.list({ limit: 0 }, auth, function(error, projects, total){
+      should.not.exist(error)
+      projects.should.eql([])
+      total.should.equal(1)
+      sdk.list({ limit: 50 }, auth, function(error, projects, total){
+        projects.should.have.lengthOf(1)
+        projects[0].should.have.property("owner", { account: creds.user })
+        total.should.equal(1)
+        done()
+      })
+    })
+  })
+
   it("should be unauthorized if publishing with invalid token", function(done){
     sdk.publish(project, domain, { user: "token", pass: "1234" }, {
       "file-count": "99",

@@ -91,7 +91,7 @@ var sdk = function(config, surgeStream){
 
       handle(null, response, data)
 
-      if (res.statusCode >= 200 && res.statusCode < 300) return callback(null, data)
+      if (res.statusCode >= 200 && res.statusCode < 300) return callback(null, data, res.headers)
 
       // 3xx lands here too — redirects are not followed
       if (data && typeof data === "object"){
@@ -472,20 +472,38 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // list(creds, cb)                       every domain the account reaches
+    // list({ limit, offset, org }, creds, cb) a page of them, or one org's;
+    //                                        cb(error, domains, total)
+    // list(domain, creds, cb)                a domain's revisions
     list: function(projectDomain, userCreds, callback){
       if (!callback){
         callback = userCreds
         userCreds = projectDomain
         projectDomain = null
       }
+      var opts = projectDomain && typeof projectDomain === "object" ? projectDomain : null
+      if (opts) projectDomain = null
       var u = projectDomain 
         ? "/" + projectDomain + "/list"
         : "/list"
+      if (opts){
+        var query = ["limit", "offset", "org"].filter(function(k){
+          return opts[k] !== undefined && opts[k] !== null
+        }).map(function(k){
+          return k + "=" + encodeURIComponent(opts[k])
+        })
+        if (query.length) u = u + "?" + query.join("&")
+      }
       return call({
         url: u,
         method: "GET",
         auth: creds(userCreds)
-      }, callback)
+      }, function(error, data, headers){
+        if (error || projectDomain) return callback(error, data)
+        var total = parseInt((headers || {})["x-total-count"], 10)
+        callback(null, data, isNaN(total) ? (data || []).length : total)
+      })
     }, 
 
     rollback: function(projectDomain, userCreds, callback){
