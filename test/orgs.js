@@ -62,6 +62,15 @@ describe("orgs", function(){
     })
   })
 
+  it("should refuse checking a code that isn't valid", function(done){
+    sdk.claim("tiger00aaaaa", { check: true }, creds, function(error, rsp){
+      should.exist(error)
+      error.should.have.property("status", 404)
+      should.not.exist(rsp)
+      return done()
+    })
+  })
+
   it("should refuse scrapping a code that isn't valid", function(done){
     sdk.scrap("tiger00aaaaa", creds, function(error, rsp){
       should.exist(error)

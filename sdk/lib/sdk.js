@@ -365,12 +365,22 @@ var sdk = function(config, surgeStream){
 
     // any code: a transfer code takes its domain into the signed-in
     // account ({ domain, owner, orgs }), an invite joins its org ({ org:
-    // { slug, name }, role, already })
-    claim: function(code, userCreds, callback){
+    // { slug, name }, role, already }). opts.check describes what the code
+    // would do and does nothing: { check, kind: "transfer", domain, from,
+    // by, expires_at, yours } or { check, kind: "invite", org, role, by,
+    // expires_at, member }
+    claim: function(code, opts, userCreds, callback){
+      if (!callback){
+        callback = userCreds
+        userCreds = opts
+        opts = {}
+      }
+      var data = { code: code }
+      if (opts && opts.check) data.check = true
       return call({
         url: "/claim",
         method: "POST",
-        data: { code: code },
+        data: data,
         auth: creds(userCreds)
       }, callback)
     },
