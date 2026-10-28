@@ -48,6 +48,30 @@ describe("orgs", function(){
     })
   })
 
+  // invites themselves (mint, claim, scrap) are slushi test/orgMembers.js
+  it("should refuse an invite to an org the account isn't in", function(done){
+    sdk.orgInvite("orgs-" + stamp, creds, function(error, invite){
+      should.exist(error)
+      error.should.have.property("status", 404)
+      error.details.should.have.property("org", "does not exist")
+      should.not.exist(invite)
+      sdk.orgInvite("orgs-" + stamp, "admin", creds, function(error){
+        error.should.have.property("status", 404)
+        return done()
+      })
+    })
+  })
+
+  it("should refuse scrapping a code that isn't valid", function(done){
+    sdk.scrap("tiger00aaaaa", creds, function(error, rsp){
+      should.exist(error)
+      error.should.have.property("status", 404)
+      error.messages[0].should.eql("that code isn't valid")
+      should.not.exist(rsp)
+      return done()
+    })
+  })
+
   it("should refuse joining with a code that isn't valid", function(done){
     sdk.orgJoin("orgs-" + stamp, "aaaa-bbbb-cccc-dddd", creds, function(error, org){
       should.exist(error)
