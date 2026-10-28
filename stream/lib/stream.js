@@ -2,7 +2,6 @@
 var path          = require("path")
 var fs            = require("fs")
 var crypto        = require("crypto")
-var url           = require("url")
 var EventEmitter  = require('events')
 var zlib          = require("zlib")
 var Readable      = require("stream").Readable
@@ -306,7 +305,7 @@ var stream = function(config){
       var body = JSON.stringify({ files: files })
       if (Buffer.byteLength(body) > CARRY_BODY) return cb()
       request({
-        url:     url.resolve(config.endpoint, projectDomain + "/carry"),
+        url:     request.join(config.endpoint, projectDomain + "/carry"),
         method:  "POST",
         headers: { version: config.version, accept: "application/json" },
         body:    body,
@@ -371,7 +370,7 @@ var stream = function(config){
     if (opts.contentType) headers["content-type"] = opts.contentType
 
     request({
-      url:     url.resolve(config.endpoint, opts.path),
+      url:     request.join(config.endpoint, opts.path),
       method:  "PUT",
       headers: headers,
       body:    opts.body,

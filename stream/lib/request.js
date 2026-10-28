@@ -1,7 +1,6 @@
 
 var http  = require("http")
 var https = require("https")
-var url   = require("url")
 
 var pkg = require("../package.json")
 
@@ -71,7 +70,9 @@ var collect = function(res, callback){
 // without (a publish itself has none: a big upload can be slow)
 var request = function(opts, callback){
   var done      = once(callback)
-  var target    = url.parse(opts.url)
+  // WHATWG URL, not url.parse (DEP0169). it throws where url.parse never
+  // did, so a bad url comes back as an error rather than a crash
+  try { var target = new URL(opts.url) } catch (error) { return done(error) }
   var transport = target.protocol === "https:" ? https : http
   var headers   = clean(opts.headers)
   var body      = opts.body
@@ -86,9 +87,10 @@ var request = function(opts, callback){
 
   var req = transport.request({
     protocol: target.protocol,
-    hostname: target.hostname,
+    // URL keeps the brackets on an ipv6 literal, http wants them off
+    hostname: target.hostname.replace(/^\[|\]$/g, ""),
     port:     target.port,
-    path:     target.path,
+    path:     target.pathname + target.search,
     method:   opts.method || "GET",
     headers:  headers,
     auth:     credentials(opts.auth)
