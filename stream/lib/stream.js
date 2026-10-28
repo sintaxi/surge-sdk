@@ -30,6 +30,17 @@ var stream = function(config){
     }
   }
 
+  // an in-memory entry's bytes, exactly the size it states: content a
+  // caller computed wrongly can't be framed in a tar, so it fails the
+  // publish rather than corrupt the upload
+  var contentOf = function(entry){
+    var data = typeof entry.content === "function" ? entry.content() : entry.content
+    if (typeof data === "string") data = Buffer.from(data)
+    if (!data || typeof data.byteLength !== "number") throw new Error("no content for " + entry.name)
+    if (data.byteLength !== entry.size) throw new Error(entry.name + " is " + data.byteLength + " bytes, not the " + entry.size + " its entry states")
+    return data
+  }
+
   // Helper: Recursively get all files in a directory
   //
   // symlinks are resolved here, client side, and packed as the content they
@@ -88,7 +99,8 @@ var stream = function(config){
   // grows mid-publish (an agent rewriting the project) goes as it was at
   // the stat, one that shrinks fails the upload rather than corrupt it
   // entries: [{ name, full }] - the path inside the project, and the file
-  // on disk it's read from (a single file is published under another name)
+  // on disk it's read from (a single file is published under another name),
+  // or [{ name, content }] - a file already in memory (see publishEntries)
   var tarStream = function(dirName, entries){
     // look-ahead: the next AHEAD files are stat'd (and read, when small)
     // while the current one goes out, so a project of thousands of small
@@ -132,6 +144,11 @@ var stream = function(config){
             slot.err = err; slot.stat = stat; slot.data = data; slot.ready = true
             if (slot.waiting){ var w = slot.waiting; slot.waiting = null; w() }
           }
+          if (entries[i].full === undefined){
+            var data
+            try { data = contentOf(entries[i]) } catch (err){ return finish(err) }
+            return finish(null, { size: data.length, mode: entries[i].mode }, data)
+          }
           fs.stat(full, function(err, stat){
             if (err) return finish(err)
             if (stat.size === 0 || stat.size > SMALL) return finish(null, stat, null)
@@ -166,6 +183,8 @@ var stream = function(config){
       out.push(Buffer.from(pack.header(dirName + "/" + f, size, slot.stat.mode)))
       if (size === 0) return next()
       if (slot.data){
+        // a Uint8Array from memory goes out as a Buffer, without a copy
+        if (!Buffer.isBuffer(slot.data)) slot.data = Buffer.from(slot.data.buffer, slot.data.byteOffset, slot.data.byteLength)
         out.push(slot.data)
         if (out.push(Buffer.from(pack.padding(size)))) next()
         return
@@ -275,8 +294,21 @@ var stream = function(config){
     s.on("end", function(){ cb(null, { sha256: hash.digest("hex"), size: size }) })
   }
 
-  // name -> { sha256, size } for every entry, four files at a time
+  // name -> { sha256, size } for every entry, four files at a time. An
+  // entry in memory may bring its own sha256 (a store that keys content by
+  // hash already has it); otherwise its content is hashed
   var hashAll = function(entries, cb){
+    if (entries.length && entries[0].full === undefined){
+      var known = {}
+      try {
+        entries.forEach(function(e){
+          if (e.sha256) return known[e.name] = { sha256: e.sha256, size: e.size }
+          var data = contentOf(e)
+          known[e.name] = { sha256: crypto.createHash("sha256").update(data).digest("hex"), size: data.length }
+        })
+      } catch (err){ return cb(err) }
+      return cb(null, known)
+    }
     var out = {}, next = 0, active = 0, finished = 0, failed = false
     var start = function(){
       while (active < 4 && next < entries.length){
@@ -429,24 +461,69 @@ var stream = function(config){
 
   var totalSize = function(entries){
     return entries.reduce(function(n, e){
+      if (e.full === undefined) return n + e.size
       try { return n + fs.statSync(e.full).size } catch(x){ return n }
     }, 0)
+  }
+
+  // refused before any request, in the shape a server refusal arrives in
+  var refuse = function(message){
+    var refused = new EventEmitter()
+    process.nextTick(function(){
+      refused.emit("error", { error: { message: message } })
+      refused.emit("fail")
+    })
+    return refused
   }
 
   // projectPath: a directory, or a single file (see project.single)
   var publish = function(projectPath, projectDomain, userCreds, headers, argv){
     var project = createProject(projectPath)
+    if (project.refused) return refuse(project.refused)
+    return publishProject(project, projectDomain, userCreds, headers, argv)
+  }
 
-    // refused before any request, in the shape a server refusal arrives in
-    if (project.refused){
-      var refused = new EventEmitter()
-      process.nextTick(function(){
-        refused.emit("error", { error: { message: project.refused } })
-        refused.emit("fail")
-      })
-      return refused
+  // files that are already in memory - a project held in a database, not
+  // on disk - published exactly as a directory is: carry, tar, gzip and the
+  // same events, with nothing read from or written to the file system.
+  // entries: [{ name, size, content, sha256?, mode? }] where name is the
+  // path inside the project ("css/app.css"), content its bytes (a Buffer
+  // or Uint8Array of exactly size bytes) or a function returning them,
+  // called when the file is hashed or packed, and sha256 its hex digest
+  // when the caller already has it (carry then reads no content it lacks)
+  var publishEntries = function(entries, projectDomain, userCreds, headers, argv){
+    var problem = entriesProblem(entries)
+    if (problem) return refuse(problem)
+    var project = {
+      entries: entries.map(function(e){
+        return { name: e.name, size: e.size, content: e.content, sha256: e.sha256, mode: e.mode }
+      }),
+      dirName: "project",
+      skipped: []
     }
+    return publishProject(project, projectDomain, userCreds, headers, argv)
+  }
 
+  // what's wrong with a list of entries before any of it is sent: a tar
+  // can't be framed without each file's size, and the server would see
+  // two files at one path as one
+  var entriesProblem = function(entries){
+    if (!Array.isArray(entries)) return "entries must be a list of files"
+    var seen = {}
+    for (var i = 0; i < entries.length; i++){
+      var e = entries[i] || {}
+      if (typeof e.name !== "string" || !e.name || e.name.charAt(0) === "/" || e.name.split("/").indexOf("..") !== -1 || e.name.split("/").indexOf("") !== -1)
+        return "entry " + i + " needs a relative path as its name"
+      if (seen[e.name]) return "two entries are named " + e.name
+      seen[e.name] = true
+      if (!(e.size >= 0) || Math.floor(e.size) !== e.size) return e.name + " needs its size in bytes"
+      if (e.content === undefined || e.content === null) return e.name + " has no content"
+    }
+    return null
+  }
+
+  // one project's publish, from disk or from memory
+  var publishProject = function(project, projectDomain, userCreds, headers, argv){
     var bytes   = totalSize(project.entries)
     var emitter = new EventEmitter()
 
@@ -513,6 +590,7 @@ var stream = function(config){
   return {
     encrypt: encrypt,
     publish: publish,
+    publishEntries: publishEntries,
     ssl: ssl
   }
 }
