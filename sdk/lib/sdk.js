@@ -218,6 +218,54 @@ var sdk = function(config, surgeStream){
       }, callback)
     },
 
+    // one of the account's tokens becomes an org's, its value unchanged,
+    // so a pipeline holding it keeps publishing - as the org from then on
+    tokenTransfer: function(id, org, userCreds, callback){
+      if (!id) return callback({
+        messages: ["token id must be present"],
+        details: { token: "id must be present" }
+      })
+      return call({
+        url: "/tokens/" + id,
+        method: "PUT",
+        data: { org: org },
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // an org's tokens (slushi plans/org-tokens.md): the org is the actor,
+    // so they publish its domains whoever comes and goes. Any member lists,
+    // adds and rems them
+    orgTokens: function(org, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/tokens",
+        method: "GET",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    // args: { msg, scope } - the value comes back here and never again
+    orgTokenAdd: function(org, args, userCreds, callback){
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/tokens",
+        method: "POST",
+        data: args || {},
+        auth: creds(userCreds)
+      }, callback)
+    },
+
+    orgTokenRem: function(org, id, userCreds, callback){
+      if (!id) return callback({
+        messages: ["token id must be present"],
+        details: { token: "id must be present" }
+      })
+      return call({
+        url: "/orgs/" + encodeURIComponent(org) + "/tokens/" + encodeURIComponent(id),
+        method: "DELETE",
+        auth: creds(userCreds)
+      }, callback)
+    },
+
     // orgs (slushi plans/b2b.md): an org is named by its id or slug, or an
     // old slug that still resolves to it
     orgs: function(userCreds, callback){
